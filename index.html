@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบจัดตารางเรียนปี 1 สาขาภาษาอังกฤษ</title>
+    <title>ระบบจัดตารางเรียนปี 1 สาขาภาษาอังกฤษ (Light Glass)</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         :root {
-            /* 🎨 Neon Crimson Liquid Glass Palette */
-            --color-background-primary: rgba(20, 20, 25, 0.75);
-            --color-background-secondary: rgba(35, 35, 45, 0.8);
-            --color-text-primary: #f8fafc;
-            --color-text-secondary: #cbd5e1;
-            --color-text-tertiary: #94a3b8;
-            --color-border-primary: rgba(255, 255, 255, 0.2);
-            --color-border-secondary: rgba(255, 255, 255, 0.12);
-            --color-border-tertiary: rgba(255, 255, 255, 0.06);
+            /* 🎨 Light Neon Crimson Liquid Glass Palette */
+            --color-background-primary: rgba(255, 255, 255, 0.45);
+            --color-background-secondary: rgba(255, 255, 255, 0.65);
+            --color-text-primary: #1e1b4b; /* สีน้ำเงินเข้มเกือบดำเพื่อให้อ่านง่าย */
+            --color-text-secondary: #475569;
+            --color-text-tertiary: #64748b;
+            --color-border-primary: rgba(255, 255, 255, 0.6);
+            --color-border-secondary: rgba(255, 255, 255, 0.4);
+            --color-border-tertiary: rgba(0, 0, 0, 0.08);
             
             /* 📐 Dimensions */
             --border-radius-xl: 16px;
             --border-radius-lg: 12px;
             --border-radius-md: 8px;
             
-            /* ✨ Glass Blur & Bright Neon Glow */
-            --glass-blur: 16px;
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.08);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            /* ✨ Light Glass Blur & Specular Glow Shadow */
+            --glass-blur: 20px;
+            --glass-shadow: 0 8px 32px 0 rgba(100, 0, 10, 0.15), 0 0 20px rgba(239, 68, 68, 0.1);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* พื้นหลังสีแดงโทนสว่างสไตล์โมเดิร์น */
+        /* พื้นหลังสีแดงโทนสว่าง ไล่เฉดสีให้ดูมีมิติสดใส */
         body {
-            background: radial-gradient(circle at 50% 45%, #600a16 0%, #1a0205 60%, #050001 100%);
+            background: radial-gradient(circle at 50% 45%, #ff4d6d 0%, #c9184a 50%, #800f2f 100%);
             background-attachment: fixed;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
@@ -45,10 +45,10 @@
             padding: 0; 
         }
 
-        /* กล่องครอบหลักสเกล 1200px */
+        /* กล่องครอบหลักสเกล 1200px แบบกระจกใสโทนสว่าง */
         .wrap { 
             padding: 1.25rem; 
-            background: rgba(10, 10, 12, 0.45);
+            background: var(--color-background-primary);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border-radius: var(--border-radius-xl);
@@ -58,7 +58,7 @@
             margin: 0.5rem auto;
         }
 
-        /* ตัวหนังสือด้านบนอยู่ตรงกลาง */
+        /* ตัวหนังสือด้านบน */
         .header {
             text-align: center;
             margin-bottom: 0.5rem;
@@ -66,19 +66,20 @@
 
         .header h2 { 
             font-size: 21px; 
-            font-weight: 600; 
-            color: var(--color-text-primary); 
+            font-weight: 700; 
+            color: #590d22; /* สีแดงเข้มเพื่อให้ตัดกับกระจกขาว */
             letter-spacing: -0.01em;
         }
 
         .header p { 
             font-size: 13px; 
-            color: var(--color-text-secondary); 
+            color: #800f2f; 
             margin-top: 5px; 
             margin-bottom: 0.75rem; 
+            font-weight: 500;
         }
 
-        /* แถบอธิบายสัญลักษณ์อยู่ตรงกลาง */
+        /* แถบอธิบายสัญลักษณ์ */
         .legend { 
             display: flex; 
             justify-content: center;
@@ -93,10 +94,11 @@
             gap: 8px; 
             font-size: 12px; 
             color: var(--color-text-secondary); 
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.4);
             padding: 5px 10px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-weight: 500;
         }
 
         .legend-dot { 
@@ -115,13 +117,13 @@
         }
 
         th { 
-            font-size: 12px; 
+            font-size: 12.5px; 
             font-weight: 600; 
-            color: var(--color-text-secondary); 
+            color: #590d22; 
             padding: 10px; 
             text-align: center; 
-            border: 1px solid var(--color-border-secondary); 
-            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid var(--color-border-primary); 
+            background: rgba(255, 255, 255, 0.5); 
             border-radius: var(--border-radius-md);
         }
 
@@ -129,7 +131,7 @@
             width: 90px; 
         }
 
-        /* ⏳ [จุดปรับปรุง] ปรับความสูงลงมาอยู่ที่ 120px ตามต้องการ พอดีสายตา */
+        /* คงระดับความสูงหน้าจอที่ 120px */
         td { 
             padding: 0; 
             height: 120px; 
@@ -138,44 +140,46 @@
 
         td.day-col { 
             font-size: 14px; 
-            font-weight: 600; 
-            color: var(--color-text-primary); 
+            font-weight: 700; 
+            color: #590d22; 
             text-align: center; 
             vertical-align: middle; 
-            background: rgba(255, 255, 255, 0.06); 
+            background: rgba(255, 255, 255, 0.6); 
             width: 90px; 
             border-radius: var(--border-radius-md);
-            border: 1px solid var(--color-border-secondary);
+            border: 1px solid var(--color-border-primary);
         }
 
-        /* 📘 การ์ดวิชาเอกบังคับ (Premium Blue) */
+        /* 📘 การ์ดวิชาเอกบังคับ (Light Premium Blue Glass) */
         .cell-major { 
-            background: rgba(25, 50, 120, 0.5); 
+            background: rgba(219, 234, 254, 0.7); 
             border-radius: var(--border-radius-lg); 
             padding: 10px 14px; 
             height: 100%; 
-            border: 1px solid rgba(59, 130, 246, 0.45); 
+            border: 1px solid rgba(96, 165, 250, 0.6); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.05);
         }
 
         .cell-major .subj { 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #a5ccff; 
+            font-size: 13.5px; 
+            font-weight: 700; 
+            color: #1e40af; 
             line-height: 1.35; 
         }
 
         .cell-major .info { 
-            font-size: 11px; 
-            color: #70b0ff; 
+            font-size: 11.5px; 
+            color: #2563eb; 
             margin-top: 4px; 
+            font-weight: 500;
         }
 
-        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Dashed Emerald) */
+        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Light Emerald Glass) */
         .cell-free { 
-            background: rgba(4, 47, 46, 0.25); 
+            background: rgba(204, 251, 241, 0.4); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             cursor: pointer; 
@@ -184,33 +188,35 @@
             align-items: center; 
             justify-content: center; 
             gap: 4px; 
-            border: 1.5px dashed rgba(20, 184, 166, 0.45); 
+            border: 1.5px dashed rgba(13, 148, 136, 0.5); 
             transition: all 0.2s; 
         }
 
         .cell-free:hover { 
-            background: rgba(13, 148, 136, 0.3); 
-            border-color: rgba(45, 212, 191, 1);
+            background: rgba(153, 246, 228, 0.6); 
+            border-color: rgba(13, 148, 136, 1);
             transform: scale(1.005);
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.1);
         }
 
         .cell-free .free-label { 
-            font-size: 13px; 
-            color: #2dd4bf; 
-            font-weight: 600; 
+            font-size: 13.5px; 
+            color: #0f766e; 
+            font-weight: 700; 
         }
 
         .cell-free .free-time { 
-            font-size: 11px; 
-            color: #14b8a6; 
+            font-size: 11.5px; 
+            color: #0d9488; 
+            font-weight: 500;
         }
 
-        /* 🔘 ช่องโฮมรูม (Muted Dark) */
+        /* 🔘 ช่องโฮมรูม (Light Muted Glass) */
         .cell-homeroom { 
-            background: rgba(30, 41, 59, 0.35); 
+            background: rgba(241, 245, 249, 0.5); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
-            border: 1px solid var(--color-border-secondary); 
+            border: 1px solid rgba(0, 0, 0, 0.06); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -219,48 +225,52 @@
         }
 
         .cell-homeroom .hr-label { 
-            font-size: 13px; 
-            font-weight: 500; 
-            color: var(--color-text-secondary); 
+            font-size: 13.5px; 
+            font-weight: 600; 
+            color: #475569; 
         }
 
         .cell-homeroom .hr-sub { 
-            font-size: 11px; 
-            color: var(--color-text-tertiary); 
+            font-size: 11.5px; 
+            color: #64748b; 
         }
 
-        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Premium Gold) */
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Light Amber Glass) */
         .cell-registered { 
-            background: rgba(130, 85, 15, 0.45); 
+            background: rgba(fef3c7, 254, 243, 199, 0.75);
+            background: rgba(254, 243, 199, 0.75); 
             border-radius: var(--border-radius-lg); 
             padding: 10px 14px; 
             height: 100%; 
-            border: 1px solid rgba(245, 158, 11, 0.5); 
+            border: 1px solid rgba(245, 158, 11, 0.6); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.05);
         }
 
         .cell-registered .subj { 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #ffe863; 
+            font-size: 13.5px; 
+            font-weight: 700; 
+            color: #b45309; 
             line-height: 1.35; 
         }
 
         .cell-registered .info { 
-            font-size: 11px; 
-            color: #fbbf24; 
+            font-size: 11.5px; 
+            color: #d97706; 
             margin-top: 4px; 
+            font-weight: 500;
         }
 
-        /* 🎛️ หน้าต่างเลือกวิชาด้านล่างแบบกะทัดรัด */
+        /* 🎛️ หน้าต่างเลือกวิชาด้านล่างแบบกระจกสว่าง */
         .panel { 
             margin-top: 1rem; 
-            background: rgba(15, 15, 18, 0.85); 
-            border: var(--glass-border); 
+            background: rgba(255, 255, 255, 0.85); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
             border-radius: var(--border-radius-xl); 
             padding: 1.25rem; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             display: none; 
         }
 
@@ -282,8 +292,8 @@
         }
 
         .panel-title { 
-            font-size: 15px; 
-            font-weight: 600; 
+            font-size: 16px; 
+            font-weight: 700; 
             color: var(--color-text-primary); 
         }
 
@@ -294,43 +304,47 @@
         }
 
         .close-btn { 
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid var(--color-border-secondary); 
+            background: rgba(0, 0, 0, 0.04); 
+            border: 1px solid rgba(0, 0, 0, 0.08); 
             border-radius: 6px; 
             padding: 5px 12px; 
             font-size: 12px; 
             color: var(--color-text-secondary); 
             cursor: pointer; 
+            font-weight: 500;
         }
 
         .close-btn:hover { 
-            background: rgba(239, 68, 68, 0.2);
-            color: #f87171;
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+            border-color: rgba(239, 68, 68, 0.2);
         }
 
         .counter { 
-            background: rgba(255, 255, 255, 0.03); 
+            background: rgba(0, 0, 0, 0.02); 
             border-radius: var(--border-radius-md); 
             padding: 8px 14px; 
             display: flex; 
             align-items: center; 
             gap: 12px; 
             margin-bottom: 1rem; 
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .counter-num { 
             font-size: 22px; 
-            font-weight: 600; 
+            font-weight: 700; 
             color: var(--color-text-primary); 
         }
 
         .counter-num.full { 
-            color: #34d399; 
+            color: #059669; 
         }
 
         .counter-label { 
             font-size: 13px; 
             color: var(--color-text-secondary); 
+            font-weight: 500;
         }
 
         .ge-grid { 
@@ -340,47 +354,50 @@
         }
 
         .ge-card { 
-            background: rgba(255, 255, 255, 0.02); 
+            background: rgba(255, 255, 255, 0.4); 
             border-radius: var(--border-radius-lg); 
-            border: 1px solid var(--color-border-secondary); 
+            border: 1px solid rgba(0, 0, 0, 0.06); 
             padding: 10px 12px; 
             cursor: pointer; 
             transition: all 0.2s; 
         }
 
         .ge-card:hover { 
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.8);
             border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .ge-card.picked { 
-            border: 1.5px solid #34d399; 
-            background: rgba(16, 185, 129, 0.12); 
+            border: 1.5px solid #10b981; 
+            background: rgba(209, 250, 229, 0.6); 
         }
 
         .ge-card.disabled { 
-            opacity: 0.25; 
-            cursor: not-allowed; 
-            pointer-events: none; 
-        }
-
-        .ge-card.done { 
             opacity: 0.3; 
             cursor: not-allowed; 
             pointer-events: none; 
         }
 
+        .ge-card.done { 
+            opacity: 0.35; 
+            cursor: not-allowed; 
+            pointer-events: none; 
+            background: rgba(0,0,0,0.02);
+        }
+
         .ge-name { 
             font-size: 13.5px; 
-            font-weight: 600; 
+            font-weight: 700; 
             color: var(--color-text-primary); 
             line-height: 1.35; 
         }
 
         .ge-code { 
-            font-size: 11px; 
+            font-size: 11.5px; 
             color: var(--color-text-secondary); 
             margin-top: 2px; 
+            font-weight: 600;
         }
 
         .ge-detail { 
@@ -396,10 +413,11 @@
             font-size: 10px; 
             padding: 2px 8px; 
             border-radius: 30px; 
-            background: rgba(59, 130, 246, 0.15); 
-            color: #93c5fd; 
+            background: rgba(59, 130, 246, 0.1); 
+            color: #1e40af; 
             display: inline-block; 
             margin-top: 6px; 
+            font-weight: 600;
         }
 
         .badge-match { 
@@ -407,10 +425,11 @@
             padding: 2px 8px; 
             border-radius: 30px; 
             background: rgba(16, 185, 129, 0.15); 
-            color: #34d399; 
+            color: #065f46; 
             display: inline-block; 
             margin-top: 6px; 
             margin-right: 4px; 
+            font-weight: 600;
         }
 
         .confirm-area { 
@@ -429,21 +448,25 @@
             color: #fff; 
             cursor: pointer; 
             font-weight: 600; 
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
         }
 
         .confirm-btn:hover { 
             transform: translateY(-0.5px);
+            box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
         }
 
         .confirm-btn:disabled { 
-            background: #334155; 
-            color: #64748b; 
+            background: #cbd5e1; 
+            color: #94a3b8; 
             cursor: not-allowed; 
+            box-shadow: none;
         }
 
         .hint { 
             font-size: 12.5px; 
             color: var(--color-text-secondary); 
+            font-weight: 500;
         }
     </style>
 </head>
@@ -455,17 +478,17 @@
     <p>วิชาเอกถูกล็อคไว้แล้ว • ช่องสีเขียว = ว่าง กดเพื่อดูวิชา GE ที่เลือกได้</p>
   </div>
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#253278;"></div>วิชาเอก (ล็อค)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#042f2e;"></div>ว่าง — กดเลือก GE</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#82550f;"></div>GE ที่เลือกแล้ว</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(30, 41, 59, 0.45);"></div>โฮมรูม (ไม่เปิดลง)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div>วิชาเอก (ล็อค)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0d9488;"></div>ว่าง — กดเลือก GE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div>GE ที่เลือกแล้ว</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(100, 116, 139, 0.2);"></div>โฮมรูม (ไม่เปิดลง)</div>
   </div>
   <table>
     <thead>
       <tr>
         <th class="day-header">วัน</th>
-        <th>เช้า<br><span style="font-weight:400;font-size:11px">08:00–12:00</span></th>
-        <th>บ่าย<br><span style="font-weight:400;font-size:11px">13:00–17:00</span></th>
+        <th>เช้า<br><span style="font-weight:500;font-size:11px;color:#800f2f">08:00–12:00</span></th>
+        <th>บ่าย<br><span style="font-weight:500;font-size:11px;color:#800f2f">13:00–17:00</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -533,7 +556,7 @@ function buildTable() {
         const m = MAJOR[key];
         html += `<td><div class="cell-major"><div class="subj">${m.subj}</div><div class="info">${m.time}</div></div></td>`;
       } else if (HOMEROOM.has(key)) {
-        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:var(--color-text-tertiary)"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
+        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:#64748b"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
       } else if (registeredGE[key]) {
         const g = registeredGE[key];
         html += `<td><div class="cell-registered"><div class="subj">${g.name}</div><div class="info">${g.code} Sec${g.sec} • ${g.aj}</div></div></td>`;
