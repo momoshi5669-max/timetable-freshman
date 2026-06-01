@@ -7,35 +7,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         :root {
-            /* 🎨 Dark Liquid Glass & Crimson Palette */
-            --color-background-primary: rgba(20, 20, 25, 0.6);
-            --color-background-secondary: rgba(30, 30, 40, 0.75);
+            /* 🎨 Neon Crimson Liquid Glass Palette (ปรับแดงให้สว่างสดใสขึ้นบนพื้นหลังดำ) */
+            --color-background-primary: rgba(20, 20, 25, 0.75);
+            --color-background-secondary: rgba(35, 35, 45, 0.8);
             --color-text-primary: #f8fafc;
             --color-text-secondary: #cbd5e1;
             --color-text-tertiary: #94a3b8;
-            --color-border-primary: rgba(255, 255, 255, 0.15);
-            --color-border-secondary: rgba(255, 255, 255, 0.1);
-            --color-border-tertiary: rgba(255, 255, 255, 0.05);
+            --color-border-primary: rgba(255, 255, 255, 0.2);
+            --color-border-secondary: rgba(255, 255, 255, 0.12);
+            --color-border-tertiary: rgba(255, 255, 255, 0.06);
             
-            /* 📐 Scaled Up Dimensions (ขยาย UI ให้ใหญ่ขึ้นตามคำขอ) */
-            --border-radius-xl: 24px;
-            --border-radius-lg: 16px;
-            --border-radius-md: 12px;
+            /* 📐 Compact Dimensions (ย่อ UI ลงเพื่อให้พอดีหน้าจอ 100% ไม่ต้องเลื่อนเมาส์) */
+            --border-radius-xl: 16px;
+            --border-radius-lg: 12px;
+            --border-radius-md: 8px;
             
-            /* ✨ Glass Blur & Shadow */
-            --glass-blur: 20px;
-            --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            /* ✨ Glass Blur & Bright Neon Glow */
+            --glass-blur: 16px;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.08);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* 🔴 เปลี่ยนพื้นหลังตรงส่วนเส้นสีแดงเป็น สีแดงโทนเข้มไล่เฉดไปดำ (Crimson Dark Gradient) */
+        /* 🔴 เปลี่ยนพื้นหลังเป็นสีแดงโทนสว่างและสดใสขึ้น ไล่เฉดเข้าหาศูนย์กลางบนพื้นหลังดำสนิท */
         body {
-            background: radial-gradient(circle at 50% 50%, #2d060e 0%, #150206 50%, #0a0103 100%);
+            background: radial-gradient(circle at 50% 45%, #600a16 0%, #1a0205 60%, #050001 100%);
             background-attachment: fixed;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
-            padding: 20px;
+            padding: 12px;
             color: var(--color-text-primary);
+            overflow-y: auto;
         }
 
         * { 
@@ -44,73 +45,73 @@
             padding: 0; 
         }
 
-        /* 📦 ขยายขนาดกล่องครอบเว็บหลัก (Max-Width ใหญ่ขึ้น รองรับ UI ขยายขนาด) */
+        /* 📦 ปรับขนาดกล่องครอบหลักให้กระชับและพอดีหน้าจอ */
         .wrap { 
-            padding: 2.5rem; 
-            background: rgba(15, 15, 20, 0.45);
+            padding: 1.25rem; 
+            background: rgba(10, 10, 12, 0.45);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border-radius: var(--border-radius-xl);
             border: var(--glass-border);
             box-shadow: var(--glass-shadow);
-            max-width: 1400px;
-            margin: 2rem auto;
+            max-width: 1200px;
+            margin: 0.5rem auto;
         }
 
-        /* 🏷️ ขยายขนาดตัวอักษรส่วนหัว */
+        /* 🏷️ ย่อขนาดส่วนหัว */
         .header h2 { 
-            font-size: 26px; 
+            font-size: 20px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
             letter-spacing: -0.01em;
         }
 
         .header p { 
-            font-size: 15px; 
+            font-size: 13px; 
             color: var(--color-text-secondary); 
-            margin-top: 8px; 
-            margin-bottom: 1.5rem; 
+            margin-top: 4px; 
+            margin-bottom: 0.75rem; 
         }
 
         .legend { 
             display: flex; 
-            gap: 20px; 
-            margin-bottom: 1.75rem; 
+            gap: 14px; 
+            margin-bottom: 0.75rem; 
             flex-wrap: wrap; 
         }
 
         .legend-item { 
             display: flex; 
             align-items: center; 
-            gap: 10px; 
-            font-size: 14px; 
+            gap: 8px; 
+            font-size: 12px; 
             color: var(--color-text-secondary); 
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 10px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .legend-dot { 
-            width: 12px; 
-            height: 12px; 
+            width: 10px; 
+            height: 10px; 
             border-radius: 50%; 
             flex-shrink: 0; 
         }
 
-        /* 📊 ขยายขนาดตารางและเพิ่มช่องไฟให้มีมิติกระจก */
+        /* 📊 ตารางเรียนแบบกระชับ พื้นที่พอดีหน้าจอ */
         table { 
             width: 100%; 
             border-collapse: separate; 
-            border-spacing: 12px; 
-            margin: -12px;
+            border-spacing: 8px; 
+            margin: -8px;
         }
 
         th { 
-            font-size: 14px; 
+            font-size: 12px; 
             font-weight: 600; 
             color: var(--color-text-secondary); 
-            padding: 16px 12px; 
+            padding: 10px; 
             text-align: center; 
             border: 1px solid var(--color-border-secondary); 
             background: rgba(255, 255, 255, 0.03); 
@@ -118,58 +119,56 @@
         }
 
         th.day-header { 
-            width: 120px; 
+            width: 90px; 
         }
 
-        /* ⏳ เพิ่มความสูงของช่องตารางเรียนจาก 96px เป็น 115px (ขยายตามคำขอ) */
+        /* ⏳ ปรับความสูงของช่องตารางลงมาเหลือ 88px เพื่อให้ Fit พอดีหน้าจอ 100% ไม่ต้อง Scroll */
         td { 
             padding: 0; 
-            height: 115px; 
+            height: 88px; 
             border: none;
         }
 
         td.day-col { 
-            font-size: 16px; 
+            font-size: 14px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
             text-align: center; 
             vertical-align: middle; 
-            background: rgba(255, 255, 255, 0.05); 
-            width: 120px; 
+            background: rgba(255, 255, 255, 0.06); 
+            width: 90px; 
             border-radius: var(--border-radius-md);
             border: 1px solid var(--color-border-secondary);
         }
 
-        /* 📘 การ์ดวิชาเอกบังคับ (Dark Premium Blue) */
+        /* 📘 การ์ดวิชาเอกบังคับ (Compact Premium Blue) */
         .cell-major { 
-            background: rgba(30, 58, 138, 0.45); 
+            background: rgba(25, 50, 120, 0.5); 
             border-radius: var(--border-radius-lg); 
-            padding: 16px; 
+            padding: 8px 12px; 
             height: 100%; 
-            border: 1px solid rgba(59, 130, 246, 0.3); 
+            border: 1px solid rgba(59, 130, 246, 0.45); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .cell-major .subj { 
-            font-size: 15px; 
+            font-size: 12.5px; 
             font-weight: 600; 
-            color: #93c5fd; 
-            line-height: 1.4; 
+            color: #a5ccff; 
+            line-height: 1.3; 
         }
 
         .cell-major .info { 
-            font-size: 12px; 
-            color: #60a5fa; 
-            margin-top: 8px; 
-            font-weight: 500;
+            font-size: 11px; 
+            color: #70b0ff; 
+            margin-top: 3px; 
         }
 
-        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Neon Emerald Dashed) */
+        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Compact Dashed Emerald) */
         .cell-free { 
-            background: rgba(4, 47, 46, 0.25); 
+            background: rgba(4, 47, 46, 0.3); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             cursor: pointer; 
@@ -177,32 +176,31 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            gap: 6px; 
-            border: 2px dashed rgba(20, 184, 166, 0.4); 
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+            gap: 2px; 
+            border: 1.5px dashed rgba(20, 184, 166, 0.5); 
+            transition: all 0.2s; 
         }
 
         .cell-free:hover { 
-            background: rgba(13, 148, 136, 0.25); 
+            background: rgba(13, 148, 136, 0.35); 
             border-color: rgba(45, 212, 191, 1);
-            transform: scale(1.015);
-            box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
+            transform: scale(1.01);
         }
 
         .cell-free .free-label { 
-            font-size: 15px; 
+            font-size: 13px; 
             color: #2dd4bf; 
             font-weight: 600; 
         }
 
         .cell-free .free-time { 
-            font-size: 12px; 
+            font-size: 11px; 
             color: #14b8a6; 
         }
 
         /* 🔘 ช่องโฮมรูม (Muted Dark) */
         .cell-homeroom { 
-            background: rgba(30, 41, 59, 0.3); 
+            background: rgba(30, 41, 59, 0.4); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             border: 1px solid var(--color-border-secondary); 
@@ -210,64 +208,62 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            gap: 6px; 
+            gap: 2px; 
         }
 
         .cell-homeroom .hr-label { 
-            font-size: 14px; 
+            font-size: 12.5px; 
             font-weight: 500; 
             color: var(--color-text-secondary); 
         }
 
         .cell-homeroom .hr-sub { 
-            font-size: 12px; 
+            font-size: 11px; 
             color: var(--color-text-tertiary); 
         }
 
-        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Dark Premium Gold) */
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Compact Premium Gold) */
         .cell-registered { 
-            background: rgba(120, 80, 15, 0.4); 
+            background: rgba(130, 85, 15, 0.45); 
             border-radius: var(--border-radius-lg); 
-            padding: 16px; 
+            padding: 8px 12px; 
             height: 100%; 
-            border: 1px solid rgba(245, 158, 11, 0.4); 
+            border: 1px solid rgba(245, 158, 11, 0.5); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         }
 
         .cell-registered .subj { 
-            font-size: 15px; 
+            font-size: 12.5px; 
             font-weight: 600; 
-            color: #fde047; 
-            line-height: 1.4; 
+            color: #ffe863; 
+            line-height: 1.3; 
         }
 
         .cell-registered .info { 
-            font-size: 12px; 
-            color: #f59e0b; 
-            margin-top: 8px; 
+            font-size: 11px; 
+            color: #fbbf24; 
+            margin-top: 3px; 
         }
 
-        /* 🎛️ หน้าต่างเลือกวิชาด้านล่าง (ขยายใหญ่ขึ้น) */
+        /* 🎛️ หน้าต่างเลือกวิชาด้านล่างแบบกะทัดรัด */
         .panel { 
-            margin-top: 2.5rem; 
-            background: rgba(20, 20, 25, 0.6); 
+            margin-top: 1rem; 
+            background: rgba(15, 15, 18, 0.8); 
             border: var(--glass-border); 
             border-radius: var(--border-radius-xl); 
-            padding: 2rem; 
+            padding: 1rem; 
             display: none; 
-            box-shadow: var(--glass-shadow);
         }
 
         .panel.show { 
             display: block; 
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideUp 0.3s ease-out;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
+            from { transform: translateY(10px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
@@ -275,51 +271,48 @@
             display: flex; 
             align-items: flex-start; 
             justify-content: space-between; 
-            margin-bottom: 1.5rem; 
+            margin-bottom: 0.75rem; 
         }
 
         .panel-title { 
-            font-size: 18px; 
+            font-size: 15px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
         }
 
         .panel-sub { 
-            font-size: 13px; 
+            font-size: 12px; 
             color: var(--color-text-secondary); 
-            margin-top: 6px; 
+            margin-top: 2px; 
         }
 
         .close-btn { 
             background: rgba(255, 255, 255, 0.05); 
             border: 1px solid var(--color-border-secondary); 
-            border-radius: 8px; 
-            padding: 8px 18px; 
-            font-size: 13px; 
+            border-radius: 6px; 
+            padding: 4px 12px; 
+            font-size: 12px; 
             color: var(--color-text-secondary); 
             cursor: pointer; 
-            transition: all 0.2s;
         }
 
         .close-btn:hover { 
             background: rgba(239, 68, 68, 0.2);
             color: #f87171;
-            border-color: rgba(239, 68, 68, 0.4);
         }
 
         .counter { 
             background: rgba(255, 255, 255, 0.03); 
             border-radius: var(--border-radius-md); 
-            padding: 14px 20px; 
+            padding: 8px 14px; 
             display: flex; 
             align-items: center; 
-            gap: 16px; 
-            margin-bottom: 1.5rem; 
-            border: 1px solid var(--color-border-tertiary);
+            gap: 12px; 
+            margin-bottom: 0.75rem; 
         }
 
         .counter-num { 
-            font-size: 28px; 
+            font-size: 22px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
         }
@@ -329,37 +322,34 @@
         }
 
         .counter-label { 
-            font-size: 14px; 
+            font-size: 12.5px; 
             color: var(--color-text-secondary); 
         }
 
-        /* 🎴 ขยายตารางกริดและขนาดของตัวการ์ด GE */
+        /* 🎴 ปรับขนาดกริดและตัวการ์ด GE ลงให้กระชับสายตา */
         .ge-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
-            gap: 16px; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 10px; 
         }
 
         .ge-card { 
-            background: rgba(255, 255, 255, 0.03); 
+            background: rgba(255, 255, 255, 0.02); 
             border-radius: var(--border-radius-lg); 
             border: 1px solid var(--color-border-secondary); 
-            padding: 18px; 
+            padding: 10px 12px; 
             cursor: pointer; 
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.2s; 
         }
 
         .ge-card:hover { 
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(59, 130, 246, 0.6);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(59, 130, 246, 0.5);
         }
 
         .ge-card.picked { 
-            border: 2px solid #34d399; 
-            background: rgba(16, 185, 129, 0.15); 
-            box-shadow: 0 4px 20px rgba(52, 211, 153, 0.2);
+            border: 1.5px solid #34d399; 
+            background: rgba(16, 185, 129, 0.12); 
         }
 
         .ge-card.disabled { 
@@ -372,97 +362,82 @@
             opacity: 0.3; 
             cursor: not-allowed; 
             pointer-events: none; 
-            background: rgba(255, 255, 255, 0.01);
         }
 
         .ge-name { 
-            font-size: 15px; 
+            font-size: 13px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
-            line-height: 1.4; 
+            line-height: 1.3; 
         }
 
         .ge-code { 
-            font-size: 12px; 
+            font-size: 11px; 
             color: var(--color-text-secondary); 
-            margin-top: 4px; 
-            font-weight: 500;
+            margin-top: 2px; 
         }
 
         .ge-detail { 
-            font-size: 12px; 
+            font-size: 11px; 
             color: var(--color-text-secondary); 
-            margin-top: 10px; 
+            margin-top: 6px; 
             display: flex; 
             flex-direction: column; 
-            gap: 6px; 
-        }
-
-        .ge-detail i {
-            color: var(--color-text-tertiary);
-            margin-right: 4px;
+            gap: 3px; 
         }
 
         .badge { 
-            font-size: 11px; 
-            padding: 4px 10px; 
+            font-size: 10px; 
+            padding: 2px 8px; 
             border-radius: 30px; 
-            background: rgba(59, 130, 246, 0.2); 
+            background: rgba(59, 130, 246, 0.15); 
             color: #93c5fd; 
-            font-weight: 600; 
             display: inline-block; 
-            margin-top: 8px; 
+            margin-top: 6px; 
         }
 
         .badge-match { 
-            font-size: 11px; 
-            padding: 4px 10px; 
+            font-size: 10px; 
+            padding: 2px 8px; 
             border-radius: 30px; 
-            background: rgba(16, 185, 129, 0.2); 
+            background: rgba(16, 185, 129, 0.15); 
             color: #34d399; 
-            font-weight: 600; 
             display: inline-block; 
-            margin-top: 8px; 
-            margin-right: 6px; 
+            margin-top: 6px; 
+            margin-right: 4px; 
         }
 
         .confirm-area { 
-            margin-top: 2rem; 
+            margin-top: 1rem; 
             display: flex; 
-            gap: 16px; 
+            gap: 12px; 
             align-items: center; 
         }
 
         .confirm-btn { 
             background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
             border: none; 
-            border-radius: 12px; 
-            padding: 12px 28px; 
-            font-size: 15px; 
+            border-radius: 8px; 
+            padding: 8px 20px; 
+            font-size: 13px; 
             color: #fff; 
             cursor: pointer; 
             font-weight: 600; 
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            transition: all 0.2s;
         }
 
         .confirm-btn:hover { 
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-0.5px);
         }
 
         .confirm-btn:disabled { 
             background: #334155; 
             color: #64748b; 
             cursor: not-allowed; 
-            box-shadow: none;
-            transform: none;
         }
 
         .hint { 
-            font-size: 13px; 
+            font-size: 12px; 
             color: var(--color-text-secondary); 
-            font-weight: 500;
         }
     </style>
 </head>
@@ -474,17 +449,17 @@
     <p>วิชาเอกถูกล็อคไว้แล้ว • ช่องสีเขียว = ว่าง กดเพื่อดูวิชา GE ที่เลือกได้</p>
   </div>
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#60a5fa;"></div>วิชาเอก (ล็อค)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#2dd4bf;"></div>ว่าง — กดเลือก GE</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div>GE ที่เลือกแล้ว</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#475569;"></div>โฮมรูม (ไม่เปิดลง)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#253278;"></div>วิชาเอก (ล็อค)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#042f2e;"></div>ว่าง — กดเลือก GE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#82550f;"></div>GE ที่เลือกแล้ว</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(30, 41, 59, 0.4);"></div>โฮมรูม (ไม่เปิดลง)</div>
   </div>
   <table>
     <thead>
       <tr>
         <th class="day-header">วัน</th>
-        <th>เช้า<br><span style="font-weight:400;font-size:12px">08:00–12:00</span></th>
-        <th>บ่าย<br><span style="font-weight:400;font-size:12px">13:00–17:00</span></th>
+        <th>เช้า<br><span style="font-weight:400;font-size:11px">08:00–12:00</span></th>
+        <th>บ่าย<br><span style="font-weight:400;font-size:11px">13:00–17:00</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -526,7 +501,7 @@ const GE_LIST = [
   { code:'GE001', name:'ภาษาไทยเพื่อการสื่อสาร',    sec:'02', aj:'อ.มาลี ใจดี',          period:'บ่าย', day:'อังคาร',    units:3, avail:12 },
   { code:'GE002', name:'คณิตศาสตร์ในชีวิตประจำวัน', sec:'01', aj:'อ.สมชาย คงดี',         period:'เช้า',  day:'อังคาร',    units:3, avail:28 },
   { code:'GE002', name:'คณิตศาสตร์ในชีวิตประจำวัน', sec:'02', aj:'อ.นภา ฟ้าใส',          period:'เช้า',  day:'พฤหัสบดี', units:3, avail:40 },
-  { code:'GE003', name:'วิทยาศาสตร์และเทคโนโลยี',   sec:'01', aj:'อ.ธีรพล แงทอง',      period:'บ่าย', day:'ศุกร์',     units:3, avail:22 },
+  { code:'GE003', name:'วิทยาศาสตร์และเทคโนโลยี',   sec:'01', aj:'อ.ธีรพล แสงทอง',      period:'บ่าย', day:'ศุกร์',     units:3, avail:22 },
   { code:'GE004', name:'สังคมและวัฒนธรรม',           sec:'01', aj:'อ.เบญจมาศ ลำเจียก',   period:'บ่าย', day:'จันทร์',    units:3, avail:30 },
   { code:'GE004', name:'สังคมและวัฒนธรรม',           sec:'02', aj:'อ.ชาลี บุญมา',         period:'บ่าย', day:'พุธ',       units:3, avail:18 },
   { code:'GE005', name:'สุขภาพเพื่อชีวิต',           sec:'01', aj:'อ.กานดา เพ็งพา',      period:'เช้า',  day:'อังคาร',    units:2, avail:45 },
@@ -552,7 +527,7 @@ function buildTable() {
         const m = MAJOR[key];
         html += `<td><div class="cell-major"><div class="subj">${m.subj}</div><div class="info">${m.time}</div></div></td>`;
       } else if (HOMEROOM.has(key)) {
-        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:20px;color:var(--color-text-tertiary)"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
+        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:var(--color-text-tertiary)"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
       } else if (registeredGE[key]) {
         const g = registeredGE[key];
         html += `<td><div class="cell-registered"><div class="subj">${g.name}</div><div class="info">${g.code} Sec${g.sec} • ${g.aj}</div></div></td>`;
@@ -603,9 +578,9 @@ function renderGECards(remaining) {
       <div class="ge-name">${ge.name}</div>
       <div class="ge-code">${ge.code} • Sec ${ge.sec}</div>
       <div class="ge-detail">
-        <span><i class="ti ti-user" aria-hidden="true" style="font-size:14px"></i> ${ge.aj}</span>
-        <span><i class="ti ti-calendar" aria-hidden="true" style="font-size:14px"></i> ${ge.day} ช่วง${ge.period}</span>
-        <span><i class="ti ti-armchair" aria-hidden="true" style="font-size:14px"></i> ว่าง ${ge.avail} ที่นั่ง</span>
+        <span><i class="ti ti-user" aria-hidden="true" style="font-size:11px"></i> ${ge.aj}</span>
+        <span><i class="ti ti-calendar" aria-hidden="true" style="font-size:11px"></i> ${ge.day} ช่วง${ge.period}</span>
+        <span><i class="ti ti-armchair" aria-hidden="true" style="font-size:11px"></i> ว่าง ${ge.avail} ที่นั่ง</span>
       </div>
       <div style="margin-top:4px">
         ${isMatch ? '<span class="badge-match">ตรงเวลา</span>' : ''}
