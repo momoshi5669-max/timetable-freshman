@@ -17,7 +17,7 @@
             --color-border-secondary: rgba(255, 255, 255, 0.12);
             --color-border-tertiary: rgba(255, 255, 255, 0.06);
             
-            /* 📐 Compact Dimensions (ปรับกลับมาขนาดกระชับ ไม่ต้องเลื่อนจอ) */
+            /* 📐 Dimensions */
             --border-radius-xl: 16px;
             --border-radius-lg: 12px;
             --border-radius-md: 8px;
@@ -45,7 +45,7 @@
             padding: 0; 
         }
 
-        /* 📦 ปรับขนาดกล่องกลับมาเป็น 1200px เพื่อความสมส่วน ไม่ยืดเกินไป */
+        /* กล่องครอบหลักสเกล 1200px */
         .wrap { 
             padding: 1.25rem; 
             background: rgba(10, 10, 12, 0.45);
@@ -58,7 +58,7 @@
             margin: 0.5rem auto;
         }
 
-        /* 🏷️ ตัวหนังสือด้านบนอยู่ตรงกลาง */
+        /* ตัวหนังสือด้านบนอยู่ตรงกลาง */
         .header {
             text-align: center;
             margin-bottom: 0.5rem;
@@ -114,7 +114,6 @@
             margin: -8px;
         }
 
-        /* 🖤 ปรับหัวตารางกลับมาเป็น Dark Glass หรูหรา ตัวหนังสือขาว */
         th { 
             font-size: 12px; 
             font-weight: 600; 
@@ -130,14 +129,13 @@
             width: 90px; 
         }
 
-        /* ช่องตารางสูง 88px เท่าเดิมเปิดมาพอดีจอ */
+        /* ⏳ [จุดปรับปรุง] ยืดระยะความสูงของช่องตารางลงมาเป็น 110px เพื่อความโปร่งและยาวขึ้น */
         td { 
             padding: 0; 
-            height: 88px; 
+            height: 110px; 
             border: none;
         }
 
-        /* 🖤 ปรับช่องวันทางซ้ายกลับมาเป็น Dark Glass เด่นชัด ตัวหนังสือขาว */
         td.day-col { 
             font-size: 14px; 
             font-weight: 600; 
@@ -150,11 +148,11 @@
             border: 1px solid var(--color-border-secondary);
         }
 
-        /* 📘 การ์ดวิชาเอกบังคับ (Compact Premium Blue) */
+        /* 📘 การ์ดวิชาเอกบังคับ (Premium Blue) */
         .cell-major { 
             background: rgba(25, 50, 120, 0.5); 
             border-radius: var(--border-radius-lg); 
-            padding: 8px 12px; 
+            padding: 8px 14px; 
             height: 100%; 
             border: 1px solid rgba(59, 130, 246, 0.45); 
             display: flex; 
@@ -163,19 +161,19 @@
         }
 
         .cell-major .subj { 
-            font-size: 12.5px; 
+            font-size: 13px; 
             font-weight: 600; 
             color: #a5ccff; 
-            line-height: 1.3; 
+            line-height: 1.35; 
         }
 
         .cell-major .info { 
             font-size: 11px; 
             color: #70b0ff; 
-            margin-top: 3px; 
+            margin-top: 4px; 
         }
 
-        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Dark Dashed Emerald ลื่นไหลเข้ากับธีม) */
+        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Dashed Emerald) */
         .cell-free { 
             background: rgba(4, 47, 46, 0.3); 
             border-radius: var(--border-radius-lg); 
@@ -185,7 +183,7 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            gap: 2px; 
+            gap: 4px; 
             border: 1.5px dashed rgba(20, 184, 166, 0.5); 
             transition: all 0.2s; 
         }
@@ -193,7 +191,7 @@
         .cell-free:hover { 
             background: rgba(13, 148, 136, 0.35); 
             border-color: rgba(45, 212, 191, 1);
-            transform: scale(1.01);
+            transform: scale(1.005);
         }
 
         .cell-free .free-label { 
@@ -217,11 +215,11 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            gap: 2px; 
+            gap: 4px; 
         }
 
         .cell-homeroom .hr-label { 
-            font-size: 12.5px; 
+            font-size: 13px; 
             font-weight: 500; 
             color: var(--color-text-secondary); 
         }
@@ -231,11 +229,11 @@
             color: var(--color-text-tertiary); 
         }
 
-        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Compact Premium Gold) */
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Premium Gold) */
         .cell-registered { 
             background: rgba(130, 85, 15, 0.45); 
             border-radius: var(--border-radius-lg); 
-            padding: 8px 12px; 
+            padding: 8px 14px; 
             height: 100%; 
             border: 1px solid rgba(245, 158, 11, 0.5); 
             display: flex; 
@@ -244,16 +242,16 @@
         }
 
         .cell-registered .subj { 
-            font-size: 12.5px; 
+            font-size: 13px; 
             font-weight: 600; 
             color: #ffe863; 
-            line-height: 1.3; 
+            line-height: 1.35; 
         }
 
         .cell-registered .info { 
             font-size: 11px; 
             color: #fbbf24; 
-            margin-top: 3px; 
+            margin-top: 4px; 
         }
 
         /* 🎛️ หน้าต่างเลือกวิชาด้านล่างแบบกะทัดรัด */
