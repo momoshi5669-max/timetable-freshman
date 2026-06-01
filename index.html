@@ -17,7 +17,7 @@
             --color-border-secondary: rgba(255, 255, 255, 0.12);
             --color-border-tertiary: rgba(255, 255, 255, 0.06);
             
-            /* 📐 Dimensions */
+            /* 📐 Compact Dimensions (ปรับกลับมาขนาดกระชับ ไม่ต้องเลื่อนจอ) */
             --border-radius-xl: 16px;
             --border-radius-lg: 12px;
             --border-radius-md: 8px;
@@ -28,7 +28,7 @@
             --glass-border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* พื้นหลังสีแดงโทนสว่าง ไล่เฉดเข้าหาศูนย์กลางบนพื้นหลังดำสนิท */
+        /* พื้นหลังสีแดงโทนสว่างสไตล์โมเดิร์น */
         body {
             background: radial-gradient(circle at 50% 45%, #600a16 0%, #1a0205 60%, #050001 100%);
             background-attachment: fixed;
@@ -45,7 +45,7 @@
             padding: 0; 
         }
 
-        /* 📦 ขยายขนาดกล่องครอบหลักให้ใหญ่เต็มกรอบสีแดงกว้างสุดขอบหน้าจอ */
+        /* 📦 ปรับขนาดกล่องกลับมาเป็น 1200px เพื่อความสมส่วน ไม่ยืดเกินไป */
         .wrap { 
             padding: 1.25rem; 
             background: rgba(10, 10, 12, 0.45);
@@ -54,19 +54,18 @@
             border-radius: var(--border-radius-xl);
             border: var(--glass-border);
             box-shadow: var(--glass-shadow);
-            width: 100%;
-            max-width: 100%; /* ขยายเต็มกรอบหน้าจอ */
+            max-width: 1200px;
             margin: 0.5rem auto;
         }
 
-        /* 🏷️ จัดตัวหนังสือด้านบนให้อยู่ตรงกลาง (Centered Header) */
+        /* 🏷️ ตัวหนังสือด้านบนอยู่ตรงกลาง */
         .header {
             text-align: center;
             margin-bottom: 0.5rem;
         }
 
         .header h2 { 
-            font-size: 22px; 
+            font-size: 20px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
             letter-spacing: -0.01em;
@@ -75,16 +74,16 @@
         .header p { 
             font-size: 13px; 
             color: var(--color-text-secondary); 
-            margin-top: 5px; 
+            margin-top: 4px; 
             margin-bottom: 0.75rem; 
         }
 
-        /* จัดแถบสัญลักษณ์ให้อยู่ตรงกลางหน้าจอ */
+        /* แถบอธิบายสัญลักษณ์อยู่ตรงกลาง */
         .legend { 
             display: flex; 
             justify-content: center;
             gap: 14px; 
-            margin-bottom: 1rem; 
+            margin-bottom: 0.75rem; 
             flex-wrap: wrap; 
         }
 
@@ -95,7 +94,7 @@
             font-size: 12px; 
             color: var(--color-text-secondary); 
             background: rgba(255, 255, 255, 0.04);
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
@@ -112,74 +111,73 @@
             width: 100%; 
             border-collapse: separate; 
             border-spacing: 8px; 
-            margin: -8px 0;
+            margin: -8px;
         }
 
-        /* ⚪ ปรับหัวตาราง (เวลาเช้า-บ่าย) เป็นกล่องสีขาว ตัวหนังสือสีดำ */
+        /* 🖤 ปรับหัวตารางกลับมาเป็น Dark Glass หรูหรา ตัวหนังสือขาว */
         th { 
-            font-size: 13px; 
+            font-size: 12px; 
             font-weight: 600; 
-            color: #0f172a; /* ตัวหนังสือดำ */
+            color: var(--color-text-secondary); 
             padding: 10px; 
             text-align: center; 
-            border: 1px solid rgba(255, 255, 255, 0.8); 
-            background: rgba(255, 255, 255, 0.92); /* กล่องสีขาวสว่าง */
+            border: 1px solid var(--color-border-secondary); 
+            background: rgba(255, 255, 255, 0.03); 
             border-radius: var(--border-radius-md);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         th.day-header { 
-            width: 100px; 
+            width: 90px; 
         }
 
+        /* ช่องตารางสูง 88px เท่าเดิมเปิดมาพอดีจอ */
         td { 
             padding: 0; 
             height: 88px; 
             border: none;
         }
 
-        /* ⚪ ปรับช่องบอกวันทางซ้ายมือ เป็นกล่องสีขาว ตัวหนังสือสีดำ */
+        /* 🖤 ปรับช่องวันทางซ้ายกลับมาเป็น Dark Glass เด่นชัด ตัวหนังสือขาว */
         td.day-col { 
             font-size: 14px; 
             font-weight: 600; 
-            color: #0f172a; /* ตัวหนังสือดำ */
+            color: var(--color-text-primary); 
             text-align: center; 
             vertical-align: middle; 
-            background: rgba(255, 255, 255, 0.9); /* กล่องสีขาวสว่าง */
-            width: 100px; 
+            background: rgba(255, 255, 255, 0.06); 
+            width: 90px; 
             border-radius: var(--border-radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid var(--color-border-secondary);
         }
 
-        /* 📘 การ์ดวิชาเอกบังคับ (Premium Blue Glass) */
+        /* 📘 การ์ดวิชาเอกบังคับ (Compact Premium Blue) */
         .cell-major { 
-            background: rgba(25, 50, 120, 0.55); 
+            background: rgba(25, 50, 120, 0.5); 
             border-radius: var(--border-radius-lg); 
-            padding: 8px 14px; 
+            padding: 8px 12px; 
             height: 100%; 
-            border: 1px solid rgba(59, 130, 246, 0.5); 
+            border: 1px solid rgba(59, 130, 246, 0.45); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
         }
 
         .cell-major .subj { 
-            font-size: 13px; 
+            font-size: 12.5px; 
             font-weight: 600; 
             color: #a5ccff; 
             line-height: 1.3; 
         }
 
         .cell-major .info { 
-            font-size: 11.5px; 
+            font-size: 11px; 
             color: #70b0ff; 
             margin-top: 3px; 
         }
 
-        /* 🟢 ปรับช่องว่างให้สว่างขึ้นล้อไปกับกล่องสีขาว (Bright Soft Emerald) */
+        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Dark Dashed Emerald ลื่นไหลเข้ากับธีม) */
         .cell-free { 
-            background: rgba(240, 253, 250, 0.85); /* ขาวอมเขียวสว่างใส */
+            background: rgba(4, 47, 46, 0.3); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             cursor: pointer; 
@@ -188,33 +186,30 @@
             align-items: center; 
             justify-content: center; 
             gap: 2px; 
-            border: 1.5px dashed #0d9488; 
+            border: 1.5px dashed rgba(20, 184, 166, 0.5); 
             transition: all 0.2s; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .cell-free:hover { 
-            background: #ffffff; 
-            border-color: #14b8a6;
-            transform: scale(1.005);
-            box-shadow: 0 0 12px rgba(20, 184, 166, 0.3);
+            background: rgba(13, 148, 136, 0.35); 
+            border-color: rgba(45, 212, 191, 1);
+            transform: scale(1.01);
         }
 
         .cell-free .free-label { 
             font-size: 13px; 
-            color: #115e59; /* ตัวอักษรสีเขียวเข้มอ่านง่าย */
+            color: #2dd4bf; 
             font-weight: 600; 
         }
 
         .cell-free .free-time { 
             font-size: 11px; 
             color: #14b8a6; 
-            font-weight: 500;
         }
 
-        /* 🔘 ช่องโฮมรูม (Muted Dark Glass) */
+        /* 🔘 ช่องโฮมรูม (Muted Dark) */
         .cell-homeroom { 
-            background: rgba(30, 41, 59, 0.45); 
+            background: rgba(30, 41, 59, 0.4); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             border: 1px solid var(--color-border-secondary); 
@@ -226,7 +221,7 @@
         }
 
         .cell-homeroom .hr-label { 
-            font-size: 13px; 
+            font-size: 12.5px; 
             font-weight: 500; 
             color: var(--color-text-secondary); 
         }
@@ -236,38 +231,38 @@
             color: var(--color-text-tertiary); 
         }
 
-        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Premium Gold Glass) */
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Compact Premium Gold) */
         .cell-registered { 
-            background: rgba(130, 85, 15, 0.5); 
+            background: rgba(130, 85, 15, 0.45); 
             border-radius: var(--border-radius-lg); 
-            padding: 8px 14px; 
+            padding: 8px 12px; 
             height: 100%; 
-            border: 1px solid rgba(245, 158, 11, 0.55); 
+            border: 1px solid rgba(245, 158, 11, 0.5); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
         }
 
         .cell-registered .subj { 
-            font-size: 13px; 
+            font-size: 12.5px; 
             font-weight: 600; 
             color: #ffe863; 
             line-height: 1.3; 
         }
 
         .cell-registered .info { 
-            font-size: 11.5px; 
+            font-size: 11px; 
             color: #fbbf24; 
             margin-top: 3px; 
         }
 
-        /* 🎛️ หน้าต่างเลือกวิชาด้านล่าง */
+        /* 🎛️ หน้าต่างเลือกวิชาด้านล่างแบบกะทัดรัด */
         .panel { 
-            margin-top: 1.25rem; 
-            background: rgba(15, 15, 18, 0.85); 
+            margin-top: 1rem; 
+            background: rgba(15, 15, 18, 0.8); 
             border: var(--glass-border); 
             border-radius: var(--border-radius-xl); 
-            padding: 1.25rem; 
+            padding: 1rem; 
             display: none; 
         }
 
@@ -289,13 +284,13 @@
         }
 
         .panel-title { 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
         }
 
         .panel-sub { 
-            font-size: 12.5px; 
+            font-size: 12px; 
             color: var(--color-text-secondary); 
             margin-top: 2px; 
         }
@@ -304,7 +299,7 @@
             background: rgba(255, 255, 255, 0.05); 
             border: 1px solid var(--color-border-secondary); 
             border-radius: 6px; 
-            padding: 4px 14px; 
+            padding: 4px 12px; 
             font-size: 12px; 
             color: var(--color-text-secondary); 
             cursor: pointer; 
@@ -336,22 +331,21 @@
         }
 
         .counter-label { 
-            font-size: 13px; 
+            font-size: 12.5px; 
             color: var(--color-text-secondary); 
         }
 
-        /* การ์ดใน Panel ด้านล่างขยายกริดตามสัดส่วนจอ */
         .ge-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 12px; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 10px; 
         }
 
         .ge-card { 
             background: rgba(255, 255, 255, 0.02); 
             border-radius: var(--border-radius-lg); 
             border: 1px solid var(--color-border-secondary); 
-            padding: 12px; 
+            padding: 10px 12px; 
             cursor: pointer; 
             transition: all 0.2s; 
         }
@@ -379,25 +373,25 @@
         }
 
         .ge-name { 
-            font-size: 13.5px; 
+            font-size: 13px; 
             font-weight: 600; 
             color: var(--color-text-primary); 
             line-height: 1.3; 
         }
 
         .ge-code { 
-            font-size: 11.5px; 
+            font-size: 11px; 
             color: var(--color-text-secondary); 
             margin-top: 2px; 
         }
 
         .ge-detail { 
-            font-size: 11.5px; 
+            font-size: 11px; 
             color: var(--color-text-secondary); 
             margin-top: 6px; 
             display: flex; 
             flex-direction: column; 
-            gap: 4px; 
+            gap: 3px; 
         }
 
         .badge { 
@@ -432,7 +426,7 @@
             background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
             border: none; 
             border-radius: 8px; 
-            padding: 8px 22px; 
+            padding: 8px 20px; 
             font-size: 13px; 
             color: #fff; 
             cursor: pointer; 
@@ -450,7 +444,7 @@
         }
 
         .hint { 
-            font-size: 12.5px; 
+            font-size: 12px; 
             color: var(--color-text-secondary); 
         }
     </style>
@@ -464,7 +458,7 @@
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#253278;"></div>วิชาเอก (ล็อค)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#0d9488;"></div>ว่าง — กดเลือก GE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#042f2e;"></div>ว่าง — กดเลือก GE</div>
     <div class="legend-item"><div class="legend-dot" style="background:#82550f;"></div>GE ที่เลือกแล้ว</div>
     <div class="legend-item"><div class="legend-dot" style="background:rgba(30, 41, 59, 0.45);"></div>โฮมรูม (ไม่เปิดลง)</div>
   </div>
