@@ -170,4 +170,488 @@
         /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Neon Emerald Dashed) */
         .cell-free { 
             background: rgba(4, 47, 46, 0.25); 
-            border
+            border-radius: var(--border-radius-lg); 
+            height: 100%; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+            border: 2px dashed rgba(20, 184, 166, 0.4); 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+
+        .cell-free:hover { 
+            background: rgba(13, 148, 136, 0.25); 
+            border-color: rgba(45, 212, 191, 1);
+            transform: scale(1.015);
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
+        }
+
+        .cell-free .free-label { 
+            font-size: 15px; 
+            color: #2dd4bf; 
+            font-weight: 600; 
+        }
+
+        .cell-free .free-time { 
+            font-size: 12px; 
+            color: #14b8a6; 
+        }
+
+        /* 🔘 ช่องโฮมรูม (Muted Dark) */
+        .cell-homeroom { 
+            background: rgba(30, 41, 59, 0.3); 
+            border-radius: var(--border-radius-lg); 
+            height: 100%; 
+            border: 1px solid var(--color-border-secondary); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+        }
+
+        .cell-homeroom .hr-label { 
+            font-size: 14px; 
+            font-weight: 500; 
+            color: var(--color-text-secondary); 
+        }
+
+        .cell-homeroom .hr-sub { 
+            font-size: 12px; 
+            color: var(--color-text-tertiary); 
+        }
+
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Dark Premium Gold) */
+        .cell-registered { 
+            background: rgba(120, 80, 15, 0.4); 
+            border-radius: var(--border-radius-lg); 
+            padding: 16px; 
+            height: 100%; 
+            border: 1px solid rgba(245, 158, 11, 0.4); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .cell-registered .subj { 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #fde047; 
+            line-height: 1.4; 
+        }
+
+        .cell-registered .info { 
+            font-size: 12px; 
+            color: #f59e0b; 
+            margin-top: 8px; 
+        }
+
+        /* 🎛️ หน้าต่างเลือกวิชาด้านล่าง (ขยายใหญ่ขึ้น) */
+        .panel { 
+            margin-top: 2.5rem; 
+            background: rgba(20, 20, 25, 0.6); 
+            border: var(--glass-border); 
+            border-radius: var(--border-radius-xl); 
+            padding: 2rem; 
+            display: none; 
+            box-shadow: var(--glass-shadow);
+        }
+
+        .panel.show { 
+            display: block; 
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .panel-header { 
+            display: flex; 
+            align-items: flex-start; 
+            justify-content: space-between; 
+            margin-bottom: 1.5rem; 
+        }
+
+        .panel-title { 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: var(--color-text-primary); 
+        }
+
+        .panel-sub { 
+            font-size: 13px; 
+            color: var(--color-text-secondary); 
+            margin-top: 6px; 
+        }
+
+        .close-btn { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid var(--color-border-secondary); 
+            border-radius: 8px; 
+            padding: 8px 18px; 
+            font-size: 13px; 
+            color: var(--color-text-secondary); 
+            cursor: pointer; 
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover { 
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .counter { 
+            background: rgba(255, 255, 255, 0.03); 
+            border-radius: var(--border-radius-md); 
+            padding: 14px 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 16px; 
+            margin-bottom: 1.5rem; 
+            border: 1px solid var(--color-border-tertiary);
+        }
+
+        .counter-num { 
+            font-size: 28px; 
+            font-weight: 600; 
+            color: var(--color-text-primary); 
+        }
+
+        .counter-num.full { 
+            color: #34d399; 
+        }
+
+        .counter-label { 
+            font-size: 14px; 
+            color: var(--color-text-secondary); 
+        }
+
+        /* 🎴 ขยายตารางกริดและขนาดของตัวการ์ด GE */
+        .ge-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 16px; 
+        }
+
+        .ge-card { 
+            background: rgba(255, 255, 255, 0.03); 
+            border-radius: var(--border-radius-lg); 
+            border: 1px solid var(--color-border-secondary); 
+            padding: 18px; 
+            cursor: pointer; 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+
+        .ge-card:hover { 
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(59, 130, 246, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .ge-card.picked { 
+            border: 2px solid #34d399; 
+            background: rgba(16, 185, 129, 0.15); 
+            box-shadow: 0 4px 20px rgba(52, 211, 153, 0.2);
+        }
+
+        .ge-card.disabled { 
+            opacity: 0.25; 
+            cursor: not-allowed; 
+            pointer-events: none; 
+        }
+
+        .ge-card.done { 
+            opacity: 0.3; 
+            cursor: not-allowed; 
+            pointer-events: none; 
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .ge-name { 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: var(--color-text-primary); 
+            line-height: 1.4; 
+        }
+
+        .ge-code { 
+            font-size: 12px; 
+            color: var(--color-text-secondary); 
+            margin-top: 4px; 
+            font-weight: 500;
+        }
+
+        .ge-detail { 
+            font-size: 12px; 
+            color: var(--color-text-secondary); 
+            margin-top: 10px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+        }
+
+        .ge-detail i {
+            color: var(--color-text-tertiary);
+            margin-right: 4px;
+        }
+
+        .badge { 
+            font-size: 11px; 
+            padding: 4px 10px; 
+            border-radius: 30px; 
+            background: rgba(59, 130, 246, 0.2); 
+            color: #93c5fd; 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-top: 8px; 
+        }
+
+        .badge-match { 
+            font-size: 11px; 
+            padding: 4px 10px; 
+            border-radius: 30px; 
+            background: rgba(16, 185, 129, 0.2); 
+            color: #34d399; 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-top: 8px; 
+            margin-right: 6px; 
+        }
+
+        .confirm-area { 
+            margin-top: 2rem; 
+            display: flex; 
+            gap: 16px; 
+            align-items: center; 
+        }
+
+        .confirm-btn { 
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+            border: none; 
+            border-radius: 12px; 
+            padding: 12px 28px; 
+            font-size: 15px; 
+            color: #fff; 
+            cursor: pointer; 
+            font-weight: 600; 
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transition: all 0.2s;
+        }
+
+        .confirm-btn:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .confirm-btn:disabled { 
+            background: #334155; 
+            color: #64748b; 
+            cursor: not-allowed; 
+            box-shadow: none;
+            transform: none;
+        }
+
+        .hint { 
+            font-size: 13px; 
+            color: var(--color-text-secondary); 
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <h2>ตารางเรียน — ปี 1 สาขาภาษาอังกฤษ</h2>
+    <p>วิชาเอกถูกล็อคไว้แล้ว • ช่องสีเขียว = ว่าง กดเพื่อดูวิชา GE ที่เลือกได้</p>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#60a5fa;"></div>วิชาเอก (ล็อค)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2dd4bf;"></div>ว่าง — กดเลือก GE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div>GE ที่เลือกแล้ว</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#475569;"></div>โฮมรูม (ไม่เปิดลง)</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th class="day-header">วัน</th>
+        <th>เช้า<br><span style="font-weight:400;font-size:12px">08:00–12:00</span></th>
+        <th>บ่าย<br><span style="font-weight:400;font-size:12px">13:00–17:00</span></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="panel" id="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title" id="panel-title">วิชา GE ที่เปิดสอน</div>
+        <div class="panel-sub" id="panel-sub"></div>
+      </div>
+      <button class="close-btn" onclick="closePanel()">ปิด</button>
+    </div>
+    <div class="counter">
+      <div class="counter-num" id="cnt-num">0</div>
+      <div class="counter-label">จาก 2 วิชาที่เลือกได้ — คลิกการ์ดเพื่อเลือก/ยกเลิก</div>
+    </div>
+    <div class="ge-grid" id="ge-grid"></div>
+    <div class="confirm-area">
+      <button class="confirm-btn" id="confirm-btn" onclick="confirmSelection()" disabled>ยืนยันการเลือก</button>
+      <span class="hint" id="confirm-hint">เลือกวิชาก่อนกดยืนยัน</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const DAYS = ['จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์'];
+const PERIODS = ['เช้า','บ่าย'];
+const HOMEROOM = new Set(['พุธ-บ่าย']);
+
+const MAJOR = {
+  'จันทร์-เช้า':  { subj: 'ภาษาไทยและอังกฤษเพื่อการสื่อสาร', time: '08:00–12:00' },
+  'อังคาร-บ่าย': { subj: 'ไวยากรณ์ภาษาอังกฤษสำหรับครู',      time: '13:00–17:00' },
+  'พุธ-เช้า':     { subj: 'สัทศาสตร์และสรวิทยา',               time: '08:00–12:00' },
+  'ศุกร์-เช้า':   { subj: 'จิตวิทยาเพื่อการพัฒนาผู้เรียน',     time: '08:00–12:00' },
+};
+
+const GE_LIST = [
+  { code:'GE001', name:'ภาษาไทยเพื่อการสื่อสาร',    sec:'01', aj:'อ.รัตนา สุขใจ',        period:'เช้า',  day:'จันทร์',    units:3, avail:35 },
+  { code:'GE001', name:'ภาษาไทยเพื่อการสื่อสาร',    sec:'02', aj:'อ.มาลี ใจดี',          period:'บ่าย', day:'อังคาร',    units:3, avail:12 },
+  { code:'GE002', name:'คณิตศาสตร์ในชีวิตประจำวัน', sec:'01', aj:'อ.สมชาย คงดี',         period:'เช้า',  day:'อังคาร',    units:3, avail:28 },
+  { code:'GE002', name:'คณิตศาสตร์ในชีวิตประจำวัน', sec:'02', aj:'อ.นภา ฟ้าใส',          period:'เช้า',  day:'พฤหัสบดี', units:3, avail:40 },
+  { code:'GE003', name:'วิทยาศาสตร์และเทคโนโลยี',   sec:'01', aj:'อ.ธีรพล แงทอง',      period:'บ่าย', day:'ศุกร์',     units:3, avail:22 },
+  { code:'GE004', name:'สังคมและวัฒนธรรม',           sec:'01', aj:'อ.เบญจมาศ ลำเจียก',   period:'บ่าย', day:'จันทร์',    units:3, avail:30 },
+  { code:'GE004', name:'สังคมและวัฒนธรรม',           sec:'02', aj:'อ.ชาลี บุญมา',         period:'บ่าย', day:'พุธ',       units:3, avail:18 },
+  { code:'GE005', name:'สุขภาพเพื่อชีวิต',           sec:'01', aj:'อ.กานดา เพ็งพา',      period:'เช้า',  day:'อังคาร',    units:2, avail:45 },
+  { code:'GE006', name:'ศิลปะและสุนทรียภาพ',         sec:'01', aj:'อ.วรรณา สวยงาม',      period:'เช้า',  day:'ศุกร์',     units:2, avail:20 },
+  { code:'GE007', name:'ความเป็นพลเมืองโลก',         sec:'01', aj:'อ.อัมพร ใจกล้า',      period:'บ่าย', day:'พฤหัสบดี', units:3, avail:33 },
+  { code:'GE008', name:'เทคโนโลยีสารสนเทศ',          sec:'01', aj:'อ.บุญชู คอมพิวเตอร์', period:'บ่าย', day:'จันทร์',    units:3, avail:25 },
+  { code:'GE009', name:'การคิดเชิงวิพากษ์',          sec:'01', aj:'อ.ศิริพร ฉลาดคิด',    period:'บ่าย', day:'อังคาร',    units:3, avail:38 },
+];
+
+let selectedGE = [];
+let registeredGE = {};
+let currentDay = null, currentPeriod = null;
+
+function buildTable() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  DAYS.forEach(day => {
+    const tr = document.createElement('tr');
+    let html = `<td class="day-col">${day}</td>`;
+    PERIODS.forEach(period => {
+      const key = day + '-' + period;
+      if (MAJOR[key]) {
+        const m = MAJOR[key];
+        html += `<td><div class="cell-major"><div class="subj">${m.subj}</div><div class="info">${m.time}</div></div></td>`;
+      } else if (HOMEROOM.has(key)) {
+        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:20px;color:var(--color-text-tertiary)"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
+      } else if (registeredGE[key]) {
+        const g = registeredGE[key];
+        html += `<td><div class="cell-registered"><div class="subj">${g.name}</div><div class="info">${g.code} Sec${g.sec} • ${g.aj}</div></div></td>`;
+      } else {
+        const timeLabel = period === 'เช้า' ? '08:00–12:00' : '13:00–17:00';
+        html += `<td><div class="cell-free" onclick="openSlot('${day}','${period}')"><div class="free-label">+ เลือก GE</div><div class="free-time">${timeLabel}</div></div></td>`;
+      }
+    });
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+}
+
+function openSlot(day, period) {
+  currentDay = day; currentPeriod = period;
+  selectedGE = [];
+  const totalReg = Object.keys(registeredGE).length;
+  const remaining = 2 - totalReg;
+  document.getElementById('panel-title').textContent = `วิชา GE — ${day} ช่วง${period}`;
+  document.getElementById('panel-sub').textContent = `เลือกได้อีก ${remaining} วิชา (ลงทะเบียนแล้ว ${totalReg}/2)`;
+  document.getElementById('cnt-num').textContent = 0;
+  document.getElementById('cnt-num').className = 'counter-num';
+  renderGECards(remaining);
+  updateConfirm(remaining);
+  const panel = document.getElementById('panel');
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderGECards(remaining) {
+  const grid = document.getElementById('ge-grid');
+  grid.innerHTML = '';
+  const matched = GE_LIST.filter(g => g.day === currentDay && g.period === currentPeriod);
+  const others  = GE_LIST.filter(g => !(g.day === currentDay && g.period === currentPeriod));
+  [...matched, ...others].forEach(ge => {
+    const realIdx = GE_LIST.indexOf(ge);
+    const alreadyDone = Object.values(registeredGE).some(r => r.code===ge.code && r.sec===ge.sec);
+    const isPicked = selectedGE.includes(realIdx);
+    const isDisabled = !isPicked && selectedGE.length >= remaining;
+    const card = document.createElement('div');
+    let cls = 'ge-card';
+    if (alreadyDone) cls += ' done';
+    else if (isPicked) cls += ' picked';
+    else if (isDisabled) cls += ' disabled';
+    card.className = cls;
+    const isMatch = ge.day === currentDay && ge.period === currentPeriod;
+    card.innerHTML = `
+      <div class="ge-name">${ge.name}</div>
+      <div class="ge-code">${ge.code} • Sec ${ge.sec}</div>
+      <div class="ge-detail">
+        <span><i class="ti ti-user" aria-hidden="true" style="font-size:14px"></i> ${ge.aj}</span>
+        <span><i class="ti ti-calendar" aria-hidden="true" style="font-size:14px"></i> ${ge.day} ช่วง${ge.period}</span>
+        <span><i class="ti ti-armchair" aria-hidden="true" style="font-size:14px"></i> ว่าง ${ge.avail} ที่นั่ง</span>
+      </div>
+      <div style="margin-top:4px">
+        ${isMatch ? '<span class="badge-match">ตรงเวลา</span>' : ''}
+        <span class="badge">${ge.units} หน่วยกิต</span>
+      </div>`;
+    if (!alreadyDone && !isDisabled) card.onclick = () => toggleGE(realIdx, remaining);
+    grid.appendChild(card);
+  });
+}
+
+function toggleGE(idx, remaining) {
+  const pos = selectedGE.indexOf(idx);
+  if (pos >= 0) selectedGE.splice(pos, 1);
+  else if (selectedGE.length < remaining) selectedGE.push(idx);
+  document.getElementById('cnt-num').textContent = selectedGE.length;
+  document.getElementById('cnt-num').className = 'counter-num' + (selectedGE.length >= remaining ? ' full' : '');
+  renderGECards(remaining);
+  updateConfirm(remaining);
+}
+
+function updateConfirm(remaining) {
+  const btn = document.getElementById('confirm-btn');
+  const hint = document.getElementById('confirm-hint');
+  if (selectedGE.length === 0) { btn.disabled = true; hint.textContent = 'เลือกวิชาก่อนกดยืนยัน'; }
+  else { btn.disabled = false; hint.textContent = `เลือก ${selectedGE.length} วิชา — กดยืนยันเพื่อเพิ่มในตาราง`; }
+}
+
+function confirmSelection() {
+  selectedGE.forEach(idx => {
+    const ge = GE_LIST[idx];
+    const key = ge.day + '-' + ge.period;
+    if (!MAJOR[key] && !HOMEROOM.has(key) && !registeredGE[key]) registeredGE[key] = ge;
+  });
+  selectedGE = [];
+  closePanel();
+  buildTable();
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('show');
+  selectedGE = [];
+  currentDay = null; currentPeriod = null;
+}
+
+buildTable();
+</script>
+
+</body>
+</html>
