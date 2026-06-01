@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบจัดตารางเรียนปี 1 สาขาภาษาอังกฤษ (Light Glass)</title>
+    <title>ระบบจัดตารางเรียนปี 1 สาขาภาษาอังกฤษ (True Red Light Glass)</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         :root {
-            /* 🎨 Light Neon Crimson Liquid Glass Palette */
-            --color-background-primary: rgba(255, 255, 255, 0.45);
+            /* 🎨 True Red Light Liquid Glass Palette */
+            --color-background-primary: rgba(255, 255, 255, 0.42);
             --color-background-secondary: rgba(255, 255, 255, 0.65);
-            --color-text-primary: #1e1b4b; /* สีน้ำเงินเข้มเกือบดำเพื่อให้อ่านง่าย */
-            --color-text-secondary: #475569;
-            --color-text-tertiary: #64748b;
-            --color-border-primary: rgba(255, 255, 255, 0.6);
-            --color-border-secondary: rgba(255, 255, 255, 0.4);
-            --color-border-tertiary: rgba(0, 0, 0, 0.08);
+            --color-text-primary: #1a0003; /* ตัวหนังสือเข้มจัดเกือบดำเพื่อให้อ่านง่ายบนพื้นสว่าง */
+            --color-text-secondary: #4a4a5a;
+            --color-text-tertiary: #6a6a7a;
+            --color-border-primary: rgba(255, 255, 255, 0.65);
+            --color-border-secondary: rgba(255, 255, 255, 0.45);
             
             /* 📐 Dimensions */
             --border-radius-xl: 16px;
             --border-radius-lg: 12px;
             --border-radius-md: 8px;
             
-            /* ✨ Light Glass Blur & Specular Glow Shadow */
+            /* ✨ Liquid Glass Effect & Deep Glow Shadow */
             --glass-blur: 20px;
-            --glass-shadow: 0 8px 32px 0 rgba(100, 0, 10, 0.15), 0 0 20px rgba(239, 68, 68, 0.1);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 12px 40px 0 rgba(74, 0, 11, 0.25), 0 0 20px rgba(186, 12, 47, 0.15);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.55);
         }
 
-        /* พื้นหลังสีแดงโทนสว่าง ไล่เฉดสีให้ดูมีมิติสดใส */
+        /* 🔴 ปรับสีพื้นหลังใหม่ทั้งหมด: แดงคริมสัน/เชอร์รี่ลึกสไตล์โมเดิร์น ไม่ชมพู */
         body {
-            background: radial-gradient(circle at 50% 45%, #ff4d6d 0%, #c9184a 50%, #800f2f 100%);
+            background: radial-gradient(circle at 50% 45%, #e0113a 0%, #a00620 55%, #4a000b 100%);
             background-attachment: fixed;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
@@ -45,7 +44,7 @@
             padding: 0; 
         }
 
-        /* กล่องครอบหลักสเกล 1200px แบบกระจกใสโทนสว่าง */
+        /* แผ่นกระจกครอบหลัก สเกล 1200px */
         .wrap { 
             padding: 1.25rem; 
             background: var(--color-background-primary);
@@ -67,16 +66,16 @@
         .header h2 { 
             font-size: 21px; 
             font-weight: 700; 
-            color: #590d22; /* สีแดงเข้มเพื่อให้ตัดกับกระจกขาว */
+            color: #4a000b; /* แดงเข้มจัดเพื่อตัดกับเนื้อกระจกขาว */
             letter-spacing: -0.01em;
         }
 
         .header p { 
             font-size: 13px; 
-            color: #800f2f; 
+            color: #5a000d; 
             margin-top: 5px; 
             margin-bottom: 0.75rem; 
-            font-weight: 500;
+            font-weight: 600;
         }
 
         /* แถบอธิบายสัญลักษณ์ */
@@ -93,12 +92,12 @@
             align-items: center; 
             gap: 8px; 
             font-size: 12px; 
-            color: var(--color-text-secondary); 
-            background: rgba(255, 255, 255, 0.4);
-            padding: 5px 10px;
+            color: #3a0006; 
+            background: rgba(255, 255, 255, 0.45);
+            padding: 5px 12px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            font-weight: 600;
         }
 
         .legend-dot { 
@@ -118,12 +117,12 @@
 
         th { 
             font-size: 12.5px; 
-            font-weight: 600; 
-            color: #590d22; 
+            font-weight: 700; 
+            color: #4a000b; 
             padding: 10px; 
             text-align: center; 
             border: 1px solid var(--color-border-primary); 
-            background: rgba(255, 255, 255, 0.5); 
+            background: rgba(255, 255, 255, 0.55); 
             border-radius: var(--border-radius-md);
         }
 
@@ -131,7 +130,7 @@
             width: 90px; 
         }
 
-        /* คงระดับความสูงหน้าจอที่ 120px */
+        /* ความสูงล็อกไว้ที่ 120px สมส่วนสายตา */
         td { 
             padding: 0; 
             height: 120px; 
@@ -141,26 +140,26 @@
         td.day-col { 
             font-size: 14px; 
             font-weight: 700; 
-            color: #590d22; 
+            color: #4a000b; 
             text-align: center; 
             vertical-align: middle; 
-            background: rgba(255, 255, 255, 0.6); 
+            background: rgba(255, 255, 255, 0.65); 
             width: 90px; 
             border-radius: var(--border-radius-md);
             border: 1px solid var(--color-border-primary);
         }
 
-        /* 📘 การ์ดวิชาเอกบังคับ (Light Premium Blue Glass) */
+        /* 📘 การ์ดวิชาเอกบังคับ (Premium Pastel Blue Glass) */
         .cell-major { 
-            background: rgba(219, 234, 254, 0.7); 
+            background: rgba(219, 234, 254, 0.75); 
             border-radius: var(--border-radius-lg); 
             padding: 10px 14px; 
             height: 100%; 
-            border: 1px solid rgba(96, 165, 250, 0.6); 
+            border: 1px solid rgba(96, 165, 250, 0.65); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.05);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.04);
         }
 
         .cell-major .subj { 
@@ -172,14 +171,14 @@
 
         .cell-major .info { 
             font-size: 11.5px; 
-            color: #2563eb; 
+            color: #1d4ed8; 
             margin-top: 4px; 
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Light Emerald Glass) */
+        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Mint Emerald Glass) */
         .cell-free { 
-            background: rgba(204, 251, 241, 0.4); 
+            background: rgba(204, 251, 241, 0.45); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             cursor: pointer; 
@@ -188,15 +187,15 @@
             align-items: center; 
             justify-content: center; 
             gap: 4px; 
-            border: 1.5px dashed rgba(13, 148, 136, 0.5); 
+            border: 1.5px dashed rgba(13, 148, 136, 0.6); 
             transition: all 0.2s; 
         }
 
         .cell-free:hover { 
-            background: rgba(153, 246, 228, 0.6); 
+            background: rgba(153, 246, 228, 0.65); 
             border-color: rgba(13, 148, 136, 1);
             transform: scale(1.005);
-            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.1);
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.12);
         }
 
         .cell-free .free-label { 
@@ -208,15 +207,15 @@
         .cell-free .free-time { 
             font-size: 11.5px; 
             color: #0d9488; 
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* 🔘 ช่องโฮมรูม (Light Muted Glass) */
+        /* 🔘 ช่องโฮมรูม (Soft Slate Glass) */
         .cell-homeroom { 
-            background: rgba(241, 245, 249, 0.5); 
+            background: rgba(241, 245, 249, 0.55); 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
-            border: 1px solid rgba(0, 0, 0, 0.06); 
+            border: 1px solid rgba(0, 0, 0, 0.08); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -235,42 +234,41 @@
             color: #64748b; 
         }
 
-        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Light Amber Glass) */
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Honey Amber Glass) */
         .cell-registered { 
-            background: rgba(fef3c7, 254, 243, 199, 0.75);
-            background: rgba(254, 243, 199, 0.75); 
+            background: rgba(254, 243, 199, 0.8); 
             border-radius: var(--border-radius-lg); 
             padding: 10px 14px; 
             height: 100%; 
-            border: 1px solid rgba(245, 158, 11, 0.6); 
+            border: 1px solid rgba(245, 158, 11, 0.65); 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.05);
+            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.04);
         }
 
         .cell-registered .subj { 
             font-size: 13.5px; 
             font-weight: 700; 
-            color: #b45309; 
+            color: #92400e; 
             line-height: 1.35; 
         }
 
         .cell-registered .info { 
             font-size: 11.5px; 
-            color: #d97706; 
+            color: #b45309; 
             margin-top: 4px; 
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* 🎛️ หน้าต่างเลือกวิชาด้านล่างแบบกระจกสว่าง */
+        /* 🎛️ หน้าต่างเลือกวิชาด้านล่าง */
         .panel { 
             margin-top: 1rem; 
-            background: rgba(255, 255, 255, 0.85); 
-            border: 1px solid rgba(255, 255, 255, 0.6); 
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid rgba(255, 255, 255, 0.7); 
             border-radius: var(--border-radius-xl); 
             padding: 1.25rem; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
             display: none; 
         }
 
@@ -294,7 +292,7 @@
         .panel-title { 
             font-size: 16px; 
             font-weight: 700; 
-            color: var(--color-text-primary); 
+            color: #1a0003; 
         }
 
         .panel-sub { 
@@ -311,13 +309,13 @@
             font-size: 12px; 
             color: var(--color-text-secondary); 
             cursor: pointer; 
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .close-btn:hover { 
             background: rgba(239, 68, 68, 0.15);
             color: #dc2626;
-            border-color: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.25);
         }
 
         .counter { 
@@ -354,7 +352,7 @@
         }
 
         .ge-card { 
-            background: rgba(255, 255, 255, 0.4); 
+            background: rgba(255, 255, 255, 0.5); 
             border-radius: var(--border-radius-lg); 
             border: 1px solid rgba(0, 0, 0, 0.06); 
             padding: 10px 12px; 
@@ -363,14 +361,14 @@
         }
 
         .ge-card:hover { 
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             border-color: rgba(59, 130, 246, 0.5);
             box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .ge-card.picked { 
             border: 1.5px solid #10b981; 
-            background: rgba(209, 250, 229, 0.6); 
+            background: rgba(209, 250, 229, 0.65); 
         }
 
         .ge-card.disabled { 
@@ -389,7 +387,7 @@
         .ge-name { 
             font-size: 13.5px; 
             font-weight: 700; 
-            color: var(--color-text-primary); 
+            color: #1a0003; 
             line-height: 1.35; 
         }
 
@@ -481,14 +479,14 @@
     <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div>วิชาเอก (ล็อค)</div>
     <div class="legend-item"><div class="legend-dot" style="background:#0d9488;"></div>ว่าง — กดเลือก GE</div>
     <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div>GE ที่เลือกแล้ว</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(100, 116, 139, 0.2);"></div>โฮมรูม (ไม่เปิดลง)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(100, 116, 139, 0.25);"></div>โฮมรูม (ไม่เปิดลง)</div>
   </div>
   <table>
     <thead>
       <tr>
         <th class="day-header">วัน</th>
-        <th>เช้า<br><span style="font-weight:500;font-size:11px;color:#800f2f">08:00–12:00</span></th>
-        <th>บ่าย<br><span style="font-weight:500;font-size:11px;color:#800f2f">13:00–17:00</span></th>
+        <th>เช้า<br><span style="font-weight:600;font-size:11px;color:#5a000d">08:00–12:00</span></th>
+        <th>บ่าย<br><span style="font-weight:600;font-size:11px;color:#5a000d">13:00–17:00</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -556,7 +554,7 @@ function buildTable() {
         const m = MAJOR[key];
         html += `<td><div class="cell-major"><div class="subj">${m.subj}</div><div class="info">${m.time}</div></div></td>`;
       } else if (HOMEROOM.has(key)) {
-        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:#64748b"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
+        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:#475569"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
       } else if (registeredGE[key]) {
         const g = registeredGE[key];
         html += `<td><div class="cell-registered"><div class="subj">${g.name}</div><div class="info">${g.code} Sec${g.sec} • ${g.aj}</div></div></td>`;
