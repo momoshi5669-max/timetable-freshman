@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบจัดตารางเรียนปี 1 สาขาภาษาอังกฤษ (True Red Light Glass)</title>
+    <title>ระบบจัดตารางเรียนปี 1 สาขาภาษาอังกฤษ (True Red Solid White)</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         :root {
-            /* 🎨 True Red Light Liquid Glass Palette */
-            --color-background-primary: rgba(255, 255, 255, 0.42);
-            --color-background-secondary: rgba(255, 255, 255, 0.65);
-            --color-text-primary: #1a0003; /* ตัวหนังสือเข้มจัดเกือบดำเพื่อให้อ่านง่ายบนพื้นสว่าง */
-            --color-text-secondary: #4a4a5a;
-            --color-text-tertiary: #6a6a7a;
-            --color-border-primary: rgba(255, 255, 255, 0.65);
-            --color-border-secondary: rgba(255, 255, 255, 0.45);
+            /* 🎨 True Red Background & Solid White UI Palette */
+            --color-background-primary: #ffffff; /* สีขาวเรียบๆ ทึบสะอาดตา */
+            --color-background-secondary: #f8fafc;
+            --color-text-primary: #0f172a; /* สีเข้มจัด อ่านง่ายที่สุด */
+            --color-text-secondary: #475569;
+            --color-text-tertiary: #64748b;
+            --color-border-primary: #e2e8f0;
+            --color-border-secondary: #cbd5e1;
             
             /* 📐 Dimensions */
             --border-radius-xl: 16px;
             --border-radius-lg: 12px;
             --border-radius-md: 8px;
             
-            /* ✨ Liquid Glass Effect & Deep Glow Shadow */
-            --glass-blur: 20px;
-            --glass-shadow: 0 12px 40px 0 rgba(74, 0, 11, 0.25), 0 0 20px rgba(186, 12, 47, 0.15);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.55);
+            /* ✨ Clean Drop Shadows (ไม่มี Blur แบบ Glass แล้ว) */
+            --main-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+            --panel-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
         }
 
-        /* 🔴 ปรับสีพื้นหลังใหม่ทั้งหมด: แดงคริมสัน/เชอร์รี่ลึกสไตล์โมเดิร์น ไม่ชมพู */
+        /* 🔴 พื้นหลังสีแดงดุดันแบบช่วงแรก ลึกมีมิติ ไม่ชมพู */
         body {
-            background: radial-gradient(circle at 50% 45%, #e0113a 0%, #a00620 55%, #4a000b 100%);
+            background: radial-gradient(circle at 50% 45%, #d90429 0%, #7a0010 60%, #3a0005 100%);
             background-attachment: fixed;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
@@ -44,15 +43,13 @@
             padding: 0; 
         }
 
-        /* แผ่นกระจกครอบหลัก สเกล 1200px */
+        /* บอร์ดครอบหลักเปลี่ยนเป็นสีขาวทึบเรียบๆ ลอยเด่นจากพื้นหลังด้วยเงา */
         .wrap { 
             padding: 1.25rem; 
             background: var(--color-background-primary);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
             border-radius: var(--border-radius-xl);
-            border: var(--glass-border);
-            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--color-border-primary);
+            box-shadow: var(--main-shadow);
             max-width: 1200px;
             margin: 0.5rem auto;
         }
@@ -66,16 +63,16 @@
         .header h2 { 
             font-size: 21px; 
             font-weight: 700; 
-            color: #4a000b; /* แดงเข้มจัดเพื่อตัดกับเนื้อกระจกขาว */
+            color: #1e293b; 
             letter-spacing: -0.01em;
         }
 
         .header p { 
             font-size: 13px; 
-            color: #5a000d; 
+            color: var(--color-text-secondary); 
             margin-top: 5px; 
             margin-bottom: 0.75rem; 
-            font-weight: 600;
+            font-weight: 500;
         }
 
         /* แถบอธิบายสัญลักษณ์ */
@@ -92,12 +89,12 @@
             align-items: center; 
             gap: 8px; 
             font-size: 12px; 
-            color: #3a0006; 
-            background: rgba(255, 255, 255, 0.45);
+            color: var(--color-text-secondary); 
+            background: var(--color-background-secondary);
             padding: 5px 12px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            font-weight: 600;
+            border: 1px solid var(--color-border-primary);
+            font-weight: 500;
         }
 
         .legend-dot { 
@@ -118,11 +115,11 @@
         th { 
             font-size: 12.5px; 
             font-weight: 700; 
-            color: #4a000b; 
+            color: #334155; 
             padding: 10px; 
             text-align: center; 
             border: 1px solid var(--color-border-primary); 
-            background: rgba(255, 255, 255, 0.55); 
+            background: var(--color-background-secondary); 
             border-radius: var(--border-radius-md);
         }
 
@@ -130,7 +127,7 @@
             width: 90px; 
         }
 
-        /* ความสูงล็อกไว้ที่ 120px สมส่วนสายตา */
+        /* ความสูงคงที่ 120px สมส่วนสายตา */
         td { 
             padding: 0; 
             height: 120px; 
@@ -140,26 +137,25 @@
         td.day-col { 
             font-size: 14px; 
             font-weight: 700; 
-            color: #4a000b; 
+            color: #1e293b; 
             text-align: center; 
             vertical-align: middle; 
-            background: rgba(255, 255, 255, 0.65); 
+            background: #f1f5f9; 
             width: 90px; 
             border-radius: var(--border-radius-md);
             border: 1px solid var(--color-border-primary);
         }
 
-        /* 📘 การ์ดวิชาเอกบังคับ (Premium Pastel Blue Glass) */
+        /* 📘 การ์ดวิชาเอกบังคับ (Solid Premium Blue) */
         .cell-major { 
-            background: rgba(219, 234, 254, 0.75); 
+            background: #eff6ff; 
             border-radius: var(--border-radius-lg); 
             padding: 10px 14px; 
             height: 100%; 
-            border: 1px solid rgba(96, 165, 250, 0.65); 
+            border: 1px solid #bfdbfe; 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.04);
         }
 
         .cell-major .subj { 
@@ -171,14 +167,14 @@
 
         .cell-major .info { 
             font-size: 11.5px; 
-            color: #1d4ed8; 
+            color: #2563eb; 
             margin-top: 4px; 
             font-weight: 600;
         }
 
-        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Mint Emerald Glass) */
+        /* 🟢 ปุ่มช่องว่างสำหรับกดเพิ่มวิชา (Solid Emerald Dashed) */
         .cell-free { 
-            background: rgba(204, 251, 241, 0.45); 
+            background: #f0fdf4; 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
             cursor: pointer; 
@@ -187,35 +183,34 @@
             align-items: center; 
             justify-content: center; 
             gap: 4px; 
-            border: 1.5px dashed rgba(13, 148, 136, 0.6); 
+            border: 1.5px dashed #bbf7d0; 
             transition: all 0.2s; 
         }
 
         .cell-free:hover { 
-            background: rgba(153, 246, 228, 0.65); 
-            border-color: rgba(13, 148, 136, 1);
+            background: #dcfce7; 
+            border-color: #4ade80;
             transform: scale(1.005);
-            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.12);
         }
 
         .cell-free .free-label { 
             font-size: 13.5px; 
-            color: #0f766e; 
+            color: #15803d; 
             font-weight: 700; 
         }
 
         .cell-free .free-time { 
             font-size: 11.5px; 
-            color: #0d9488; 
+            color: #16a34a; 
             font-weight: 600;
         }
 
-        /* 🔘 ช่องโฮมรูม (Soft Slate Glass) */
+        /* 🔘 ช่องโฮมรูม (Solid Soft Slate) */
         .cell-homeroom { 
-            background: rgba(241, 245, 249, 0.55); 
+            background: #f8fafc; 
             border-radius: var(--border-radius-lg); 
             height: 100%; 
-            border: 1px solid rgba(0, 0, 0, 0.08); 
+            border: 1px solid #e2e8f0; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -226,25 +221,24 @@
         .cell-homeroom .hr-label { 
             font-size: 13.5px; 
             font-weight: 600; 
-            color: #475569; 
+            color: #64748b; 
         }
 
         .cell-homeroom .hr-sub { 
             font-size: 11.5px; 
-            color: #64748b; 
+            color: #94a3b8; 
         }
 
-        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Honey Amber Glass) */
+        /* 🟡 การ์ดวิชาเลือก GE ที่เลือกแล้ว (Solid Honey Amber) */
         .cell-registered { 
-            background: rgba(254, 243, 199, 0.8); 
+            background: #fffbeb; 
             border-radius: var(--border-radius-lg); 
             padding: 10px 14px; 
             height: 100%; 
-            border: 1px solid rgba(245, 158, 11, 0.65); 
+            border: 1px solid #fde68a; 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.04);
         }
 
         .cell-registered .subj { 
@@ -261,24 +255,24 @@
             font-weight: 600;
         }
 
-        /* 🎛️ หน้าต่างเลือกวิชาด้านล่าง */
+        /* 🎛️ หน้าต่างเลือกวิชาด้านล่าง (Solid White Panel) */
         .panel { 
             margin-top: 1rem; 
-            background: rgba(255, 255, 255, 0.9); 
-            border: 1px solid rgba(255, 255, 255, 0.7); 
+            background: #ffffff; 
+            border: 1px solid var(--color-border-secondary); 
             border-radius: var(--border-radius-xl); 
             padding: 1.25rem; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: var(--panel-shadow);
             display: none; 
         }
 
         .panel.show { 
             display: block; 
-            animation: slideUp 0.3s ease-out;
+            animation: slideUp 0.25s ease-out;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(10px); opacity: 0; }
+            from { transform: translateY(8px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
@@ -292,7 +286,7 @@
         .panel-title { 
             font-size: 16px; 
             font-weight: 700; 
-            color: #1a0003; 
+            color: var(--color-text-primary); 
         }
 
         .panel-sub { 
@@ -302,8 +296,8 @@
         }
 
         .close-btn { 
-            background: rgba(0, 0, 0, 0.04); 
-            border: 1px solid rgba(0, 0, 0, 0.08); 
+            background: #f1f5f9; 
+            border: 1px solid var(--color-border-primary); 
             border-radius: 6px; 
             padding: 5px 12px; 
             font-size: 12px; 
@@ -313,20 +307,20 @@
         }
 
         .close-btn:hover { 
-            background: rgba(239, 68, 68, 0.15);
+            background: #fee2e2;
             color: #dc2626;
-            border-color: rgba(239, 68, 68, 0.25);
+            border-color: #fca5a5;
         }
 
         .counter { 
-            background: rgba(0, 0, 0, 0.02); 
+            background: #f8fafc; 
             border-radius: var(--border-radius-md); 
             padding: 8px 14px; 
             display: flex; 
             align-items: center; 
             gap: 12px; 
             margin-bottom: 1rem; 
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--color-border-primary);
         }
 
         .counter-num { 
@@ -336,7 +330,7 @@
         }
 
         .counter-num.full { 
-            color: #059669; 
+            color: #16a34a; 
         }
 
         .counter-label { 
@@ -352,42 +346,41 @@
         }
 
         .ge-card { 
-            background: rgba(255, 255, 255, 0.5); 
+            background: #ffffff; 
             border-radius: var(--border-radius-lg); 
-            border: 1px solid rgba(0, 0, 0, 0.06); 
+            border: 1px solid var(--color-border-primary); 
             padding: 10px 12px; 
             cursor: pointer; 
             transition: all 0.2s; 
         }
 
         .ge-card:hover { 
-            background: rgba(255, 255, 255, 0.85);
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            background: #f8fafc;
+            border-color: #94a3b8;
         }
 
         .ge-card.picked { 
             border: 1.5px solid #10b981; 
-            background: rgba(209, 250, 229, 0.65); 
+            background: #ecfdf5; 
         }
 
         .ge-card.disabled { 
-            opacity: 0.3; 
+            opacity: 0.35; 
             cursor: not-allowed; 
             pointer-events: none; 
         }
 
         .ge-card.done { 
-            opacity: 0.35; 
+            opacity: 0.4; 
             cursor: not-allowed; 
             pointer-events: none; 
-            background: rgba(0,0,0,0.02);
+            background: #f1f5f9;
         }
 
         .ge-name { 
             font-size: 13.5px; 
             font-weight: 700; 
-            color: #1a0003; 
+            color: var(--color-text-primary); 
             line-height: 1.35; 
         }
 
@@ -411,23 +404,25 @@
             font-size: 10px; 
             padding: 2px 8px; 
             border-radius: 30px; 
-            background: rgba(59, 130, 246, 0.1); 
+            background: #eff6ff; 
             color: #1e40af; 
             display: inline-block; 
             margin-top: 6px; 
             font-weight: 600;
+            border: 1px solid #bfdbfe;
         }
 
         .badge-match { 
             font-size: 10px; 
             padding: 2px 8px; 
             border-radius: 30px; 
-            background: rgba(16, 185, 129, 0.15); 
-            color: #065f46; 
+            background: #dcfce7; 
+            color: #15803d; 
             display: inline-block; 
             margin-top: 6px; 
             margin-right: 4px; 
             font-weight: 600;
+            border: 1px solid #bbf7d0;
         }
 
         .confirm-area { 
@@ -438,7 +433,7 @@
         }
 
         .confirm-btn { 
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); 
             border: none; 
             border-radius: 8px; 
             padding: 8px 22px; 
@@ -446,12 +441,12 @@
             color: #fff; 
             cursor: pointer; 
             font-weight: 600; 
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
         }
 
         .confirm-btn:hover { 
             transform: translateY(-0.5px);
-            box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+            box-shadow: 0 6px 16px rgba(22, 163, 74, 0.3);
         }
 
         .confirm-btn:disabled { 
@@ -476,17 +471,17 @@
     <p>วิชาเอกถูกล็อคไว้แล้ว • ช่องสีเขียว = ว่าง กดเพื่อดูวิชา GE ที่เลือกได้</p>
   </div>
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div>วิชาเอก (ล็อค)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#0d9488;"></div>ว่าง — กดเลือก GE</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div>GE ที่เลือกแล้ว</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(100, 116, 139, 0.25);"></div>โฮมรูม (ไม่เปิดลง)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#eff6ff; border:1px solid #bfdbfe;"></div>วิชาเอก (ล็อค)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f0fdf4; border:1px solid #bbf7d0;"></div>ว่าง — กดเลือก GE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fffbeb; border:1px solid #fde68a;"></div>GE ที่เลือกแล้ว</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f8fafc; border:1px solid #e2e8f0;"></div>โฮมรูม (ไม่เปิดลง)</div>
   </div>
   <table>
     <thead>
       <tr>
         <th class="day-header">วัน</th>
-        <th>เช้า<br><span style="font-weight:600;font-size:11px;color:#5a000d">08:00–12:00</span></th>
-        <th>บ่าย<br><span style="font-weight:600;font-size:11px;color:#5a000d">13:00–17:00</span></th>
+        <th>เช้า<br><span style="font-weight:600;font-size:11px;color:#475569">08:00–12:00</span></th>
+        <th>บ่าย<br><span style="font-weight:600;font-size:11px;color:#475569">13:00–17:00</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -554,7 +549,7 @@ function buildTable() {
         const m = MAJOR[key];
         html += `<td><div class="cell-major"><div class="subj">${m.subj}</div><div class="info">${m.time}</div></div></td>`;
       } else if (HOMEROOM.has(key)) {
-        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:#475569"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
+        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:#64748b"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
       } else if (registeredGE[key]) {
         const g = registeredGE[key];
         html += `<td><div class="cell-registered"><div class="subj">${g.name}</div><div class="info">${g.code} Sec${g.sec} • ${g.aj}</div></div></td>`;
