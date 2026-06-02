@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ระบบจัดตารางเรียนน้องปี 1 ภาษาอังกฤษ</title>
+    
+    <!-- แทรกโลโก้ Favicon ตรงนี้ครับ -->
+    <link rel="icon" type="image/png" href="MAGG1E.png">
+
+    <!-- Open Graph / Facebook / LINE (ระบบแสดงตัวอย่างลิงก์เวลาแชร์) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://momoshi5669-max.github.io/timetable-freshman/">
+    <meta property="og:title" content="ระบบจัดตารางเรียนน้องปี 1 วิชาเอกภาษาอังกฤษ">
+    <meta property="og:description" content="โปรแกรมจำลองจัดตารางเรียนด้วยตัวเองสำหรับนักศึกษาปี 1 ล็อควิชาเอกให้แล้ว เลือกวิชา GE ได้ตามใจชอบ">
+    <meta property="og:image" content="https://momoshi5669-max.github.io/timetable-freshman/cover.png">
+
+    <!-- Twitter (สำหรับการแชร์บน X) -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://momoshi5669-max.github.io/timetable-freshman/">
+    <meta property="twitter:title" content="ระบบจัดตารางเรียนน้องปี 1 วิชาเอกภาษาอังกฤษ">
+    <meta property="twitter:description" content="โปรแกรมจำลองจัดตารางเรียนด้วยตัวเองสำหรับนักศึกษาปี 1 ล็อควิชาเอกให้แล้ว เลือกวิชา GE ได้ตามใจชอบ">
+    <meta property="twitter:image" content="https://momoshi5669-max.github.io/timetable-freshman/cover.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    
+    <!-- นำเข้าฟอนต์ Kanit จาก Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-background-primary: #ffffff; 
+            --color-background-secondary: #f8fafc;
+            --color-text-primary: #0f172a; 
+            --color-text-secondary: #475569;
+            --color-text-tertiary: #64748b;
+            --color-border-primary: #e2e8f0;
+            --color-border-secondary: #cbd5e1;
+            
+            --border-radius-xl: 16px;
+            --border-radius-lg: 12px;
+            --border-radius-md: 8px;
+            
+            --main-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+            --panel-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 45%, #d90429 0%, #7a0010 60%, #3a0005 100%);
+            background-attachment: fixed;
+            font-family: 'Kanit', sans-serif;
+            min-height: 100vh;
+            padding: 14px;
+            color: var(--color-text-primary);
+            overflow-x: hidden;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        .wrap { 
+            padding: 1.25rem; 
+            background: var(--color-background-primary);
+            border-radius: var(--border-radius-xl);
+            border: 1px solid var(--color-border-primary);
+            box-shadow: var(--main-shadow);
+            max-width: 1200px;
+            margin: 0.5rem auto;
+        }
+
+        .header { text-align: center; margin-bottom: 0.75rem; }
+        .header h2 { font-size: 26px; font-weight: 600; color: #1e293b; letter-spacing: -0.02em; line-height: 1.3; }
+        .header p { font-size: 14px; color: var(--color-text-secondary); margin-top: 6px; margin-bottom: 0.75rem; font-weight: 400; }
+
+        .legend { display: flex; justify-content: center; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--color-text-secondary); background: var(--color-background-secondary); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--color-border-primary); font-weight: 500; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+            -ms-overflow-style: none;  
+        }
+        .table-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        table { width: 100%; border-collapse: separate; border-spacing: 8px; margin: -8px; }
+        th { font-size: 14px; font-weight: 600; color: #334155; padding: 10px; text-align: center; border: 1px solid var(--color-border-primary); background: var(--color-background-secondary); border-radius: var(--border-radius-md); }
+        th.day-header { width: 90px; }
+        td { padding: 0; height: 120px; border: none; }
+        td.day-col { font-size: 16px; font-weight: 600; color: #1e293b; text-align: center; vertical-align: middle; background: #f1f5f9; width: 90px; border-radius: var(--border-radius-md); border: 1px solid var(--color-border-primary); }
+
+        .cell-major { 
+            background: linear-gradient(135deg, #d90429 0%, #9e031d 100%); 
+            border-radius: var(--border-radius-lg); 
+            padding: 10px 14px; 
+            height: 100%; 
+            border: 1px solid #7a0010; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.15); 
+        }
+        .cell-major .subj { font-size: 14px; font-weight: 600; color: #ffffff; line-height: 1.35; }
+        .cell-major .info { font-size: 13px; color: #fecaca; margin-top: 4px; font-weight: 500; } 
+
+        .cell-free { background: #f0fdf4; border-radius: var(--border-radius-lg); height: 100%; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 1.5px dashed #bbf7d0; transition: all 0.2s; }
+        .cell-free:hover { background: #dcfce7; border-color: #4ade80; transform: scale(1.005); }
+        .cell-free .free-label { font-size: 14px; color: #15803d; font-weight: 600; }
+        .cell-free .free-time { font-size: 13px; color: #16a34a; font-weight: 500; }
+
+        .cell-blank { background: #f8fafc; border-radius: var(--border-radius-lg); height: 100%; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; }
+        .cell-blank span { color: #94a3b8; font-size: 14px; font-weight: 500; }
+
+        .cell-homeroom { background: #f8fafc; border-radius: var(--border-radius-lg); height: 100%; border: 1px solid #e2e8f0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+        .cell-homeroom .hr-label { font-size: 14px; font-weight: 600; color: #64748b; }
+        .cell-homeroom .hr-sub { font-size: 13px; color: #94a3b8; font-weight: 400; }
+
+        .cell-registered { background: #fffbeb; border-radius: var(--border-radius-lg); padding: 10px 14px; height: 100%; border: 1px solid #fde68a; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .cell-registered .subj { font-size: 14px; font-weight: 600; color: #92400e; line-height: 1.35; padding-right: 25px; }
+        .cell-registered .info { font-size: 13px; color: #b45309; margin-top: 4px; font-weight: 500; }
+        
+        .remove-slot-btn { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: #92400e; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.2s; padding: 4px; }
+        .remove-slot-btn:hover { opacity: 1; color: #dc2626; }
+
+        .panel { margin-top: 1rem; background: #ffffff; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-xl); padding: 1.25rem; box-shadow: var(--panel-shadow); display: none; }
+        .panel.show { display: block; animation: slideUp 0.25s ease-out; }
+        @keyframes slideUp { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .panel-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
+        .panel-title { font-size: 18px; font-weight: 600; color: var(--color-text-primary); }
+        .panel-sub { font-size: 14px; color: var(--color-text-secondary); margin-top: 2px; }
+        .close-btn { background: #f1f5f9; border: 1px solid var(--color-border-primary); border-radius: 6px; padding: 5px 12px; font-size: 14px; color: var(--color-text-secondary); cursor: pointer; font-weight: 500; font-family: 'Kanit', sans-serif; }
+        .close-btn:hover { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+
+        .counter { background: #f8fafc; border-radius: var(--border-radius-md); padding: 8px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; border: 1px solid var(--color-border-primary); }
+        .counter-num { font-size: 24px; font-weight: 600; color: var(--color-text-primary); }
+        .counter-num.full { color: #16a34a; }
+        .counter-label { font-size: 14px; color: var(--color-text-secondary); font-weight: 400; }
+
+        .ge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+        
+        .empty-state { text-align: center; padding: 2rem; color: var(--color-text-tertiary); font-size: 15px; font-weight: 400; grid-column: 1 / -1; }
+
+        .ge-card { background: #ffffff; border-radius: var(--border-radius-lg); border: 1px solid var(--color-border-primary); padding: 12px; cursor: pointer; transition: all 0.2s; position: relative; }
+        .ge-card:hover { background: #f8fafc; border-color: #94a3b8; }
+        .ge-card.picked { border: 1.5px solid #10b981; background: #ecfdf5; }
+        .ge-card.disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+        .ge-card.done { opacity: 0.4; cursor: not-allowed; pointer-events: none; background: #f1f5f9; }
+
+        .ge-name { font-size: 15px; font-weight: 600; color: var(--color-text-primary); line-height: 1.35; padding-right: 45px; }
+        .ge-code { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; font-weight: 500; }
+        .ge-detail { font-size: 13px; color: var(--color-text-secondary); margin-top: 6px; display: flex; flex-direction: column; gap: 3px; font-weight: 400;}
+
+        .badge-container { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+        .badge { font-size: 12px; padding: 2px 8px; border-radius: 30px; background: #eff6ff; color: #1e40af; font-weight: 500; border: 1px solid #bfdbfe; }
+        .badge-required { font-size: 12px; padding: 2px 8px; border-radius: 30px; background: #fff7ed; color: #ea580c; font-weight: 500; border: 1px solid #ffedd5; }
+        .badge-elective { font-size: 12px; padding: 2px 8px; border-radius: 30px; background: #f0fdf4; color: #15803d; font-weight: 500; border: 1px solid #bbf7d0; }
+        .badge-full { font-size: 12px; padding: 2px 8px; border-radius: 30px; background: #fef2f2; color: #dc2626; font-weight: 500; border: 1px solid #fee2e2; }
+
+        .confirm-area { margin-top: 1rem; display: flex; gap: 12px; align-items: center; }
+        .confirm-btn { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); border: none; border-radius: 8px; padding: 8px 22px; font-size: 15px; color: #fff; cursor: pointer; font-weight: 500; font-family: 'Kanit', sans-serif; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); }
+        .confirm-btn:hover { transform: translateY(-0.5px); box-shadow: 0 6px 16px rgba(22, 163, 74, 0.3); }
+        .confirm-btn:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
+        .hint { font-size: 14px; color: var(--color-text-secondary); font-weight: 400; }
+
+        /* ================= ป๊อปอัพคำชี้แจง (Modal) ================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1; pointer-events: auto;
+        }
+        .modal-box {
+            background: #ffffff;
+            width: 90%; max-width: 600px;
+            min-height: auto;
+            border-radius: var(--border-radius-xl);
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            display: flex; flex-direction: column;
+            transform: translateY(20px) scale(0.95); transition: all 0.3s ease;
+        }
+        .modal-overlay.show .modal-box {
+            transform: translateY(0) scale(1);
+        }
+        .modal-header {
+            text-align: center; border-bottom: 2px solid var(--color-border-primary); padding-bottom: 15px; margin-bottom: 20px;
+        }
+        .modal-header h3 {
+            font-size: 24px; font-weight: 600; color: #1e293b; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .modal-body {
+            flex: 1; overflow-y: auto; color: #334155; font-size: 16px; line-height: 1.6; padding: 0 5px; font-weight: 400;
+        }
+        .modal-footer {
+            margin-top: 25px; text-align: center;
+        }
+        .btn-understand {
+            background: linear-gradient(135deg, #d90429 0%, #7a0010 100%);
+            color: #fff; border: none; padding: 12px 36px; font-size: 18px; font-weight: 500; font-family: 'Kanit', sans-serif; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3); transition: all 0.2s;
+        }
+        .btn-understand:hover {
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(217, 4, 41, 0.5);
+        }
+        .info-box {
+            background: #f1f5f9; padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid #d90429; margin: 15px 0;
+        }
+        .info-box p { margin-bottom: 8px; }
+        .info-box p:last-child { margin-bottom: 0; }
+        .warning-text {
+            color: #d90429; font-weight: 500; text-align: center; font-size: 15px; margin-top: 20px; line-height: 1.6;
+        }
+        
+        .btn-action-primary {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%); color: white; border: none; padding: 12px 30px; font-size: 18px; border-radius: 30px; font-weight: 500; font-family: 'Kanit', sans-serif; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); transition: transform 0.2s; width: auto; max-width: 100%;
+        }
+        .btn-action-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
+        .btn-action-secondary {
+            background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 24px; font-size: 16px; border-radius: 30px; font-weight: 500; font-family: 'Kanit', sans-serif; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-action-secondary:hover { background: #e2e8f0; color: #1e293b; }
+
+        /* ================= MOBILE RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            body { padding: 0; }
+            .wrap { margin: 0; border-radius: 0; min-height: 100vh; padding: 15px 12px; }
+            .header h2 { font-size: 24px; }
+            .header p { font-size: 13px; }
+            
+            .table-wrapper {
+                margin: 0 -12px;
+                width: calc(100% + 24px);
+                padding: 0 12px;
+            }
+            table { min-width: 500px; margin: -8px 0; }
+            
+            td { height: 100px; }
+            th.day-header { width: 80px; }
+            td.day-col { width: 80px; font-size: 15px; }
+            
+            .cell-major { padding: 10px; }
+            .cell-major .subj { font-size: 14px; }
+            .cell-major .info { font-size: 12px; }
+            .cell-free .free-time { font-size: 12px; }
+            .cell-homeroom .hr-label { font-size: 14px; }
+            .cell-homeroom .hr-sub { font-size: 12px; }
+            .cell-registered { padding: 10px; }
+            .cell-registered .subj { font-size: 14px; padding-right: 22px; }
+            .cell-registered .info { font-size: 12px; }
+            .remove-slot-btn { top: 6px; right: 6px; }
+
+            .ge-grid { grid-template-columns: 1fr; }
+            .confirm-area { flex-direction: column; align-items: stretch; }
+            .confirm-btn { width: 100%; padding: 12px; }
+            .hint { text-align: center; }
+
+            .modal-box { padding: 20px 15px; width: 95%; }
+            .modal-header h3 { font-size: 22px; }
+            .modal-body { font-size: 15px; }
+            .btn-understand { width: 100%; padding: 12px 20px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ป๊อปอัพคำชี้แจงเริ่มต้น -->
+<div class="modal-overlay" id="welcome-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class="ti ti-speakerphone" style="color: #d90429; font-size: 26px;"></i> คำชี้แจงการจัดตารางเรียน</h3>
+        </div>
+        <div class="modal-body">
+            <p>ยินดีต้อนรับน้องๆ นักศึกษาปี 1 ทุกคนเข้าสู่ระบบจำลองจัดตารางเรียนครับ !</p>
+            <p>เพื่อให้การลงทะเบียนเรียนเป็นไปอย่างถูกต้อง ขอให้น้องๆ อ่านคำแนะนำต่อไปนี้ :</p>
+            
+            <div class="info-box">
+                <p><strong>ช่องสีแดงคือวิชาเอกที่น้องๆต้องเรียน</strong> พี่ได้ทำการล็อคไว้ให้แล้ว</p>
+                <p><strong>โควต้าวิชา GE</strong> น้องๆสามารถเลือกลงในช่องว่างสีเขียวได้เลย<br>โดยจะสามารถเลือกได้ทั้งหมด 2 วิชา</p>
+                <div style="margin-left: 15px; margin-top: 10px; color: #475569; font-size: 15px;">
+                    <p><i class="ti ti-check" style="color: #16a34a;"></i> ไม่ว่าจะเลือก GE บังคับ + GE บังคับ</p>
+                    <p><i class="ti ti-check" style="color: #16a34a;"></i> หรือ GE เลือก + GE เลือก</p>
+                    <p><i class="ti ti-check" style="color: #16a34a;"></i> หรือ GE บังคับ + GE เลือก</p>
+                    <p>ก็ย่อมได้ครับ</p>
+                </div>
+            </div>
+            
+            <p class="warning-text">
+                🚨 หลังจากที่จัดตารางเรียบร้อยแล้ว เพื่อความชัวร์แนะนำให้น้องๆ<br>นำรหัสวิชาไปตรวจสอบในเว็บของมหาลัยอีกที<br>เพื่อป้องกันความผิดพลาดของข้อมูลบนเว็บนี้
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-understand" onclick="closeWelcomeModal()">โอเคค่ะ พี่โมชิสุดหล่อ</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+  <div class="header">
+    <h2 id="main-title">ระบบจัดตารางเรียนน้องปี 1 ภาษาอังกฤษ</h2>
+    <p id="main-subtitle">วิชาเอกถูกล็อคไว้แล้ว • ช่องสีเขียว = ว่าง กดเพื่อดูวิชา GE ที่สามารถเลือกเรียนได้</p>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: linear-gradient(135deg, #d90429 0%, #9e031d 100%);"></div>วิชาเอก (ล็อค)</div>
+    <div class="legend-item" id="legend-free"><div class="legend-dot" style="background:#22c55e;"></div>ว่าง — กดเลือก GE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div>GE ที่เลือกแล้ว (เต็มช่อง)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#64748b;"></div>โฮมรูม (ไม่เปิดลง)</div>
+  </div>
+  
+  <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th class="day-header">วัน</th>
+            <th>เช้า<br><span style="font-weight:400;font-size:13px;color:#475569">08:00–12:00</span></th>
+            <th>บ่าย<br><span style="font-weight:400;font-size:13px;color:#475569">13:00–17:00</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+  </div>
+
+  <div id="finish-action-container" style="display: none; text-align: center; margin-top: 1.5rem; animation: slideUp 0.3s ease-out;">
+      <p style="color: #16a34a; font-weight: 600; margin-bottom: 12px; font-size: 16px;">🎉 น้องเลือกลงวิชา GE ครบ 2 วิชาแล้ว!</p>
+      <button class="btn-action-primary" onclick="finalizeSchedule()">
+          <i class="ti ti-camera" style="margin-right: 5px;"></i> สรุปตารางเรียน (เพื่อแคปจอ)
+      </button>
+  </div>
+
+  <div id="edit-action-container" style="display: none; text-align: center; margin-top: 1.5rem;">
+      <button class="btn-action-secondary" onclick="editSchedule()">
+          <i class="ti ti-pencil" style="margin-right: 5px;"></i> กลับไปแก้ไขตาราง
+      </button>
+  </div>
+
+  <div class="panel" id="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title" id="panel-title">วิชา GE ที่เปิดสอน</div>
+        <div class="panel-sub" id="panel-sub"></div>
+      </div>
+      <button class="close-btn" onclick="closePanel()">ปิด</button>
+    </div>
+    <div class="counter">
+      <div class="counter-num" id="cnt-num">0</div>
+      <div class="counter-label">วิชาที่เลือกในช่องเวลานี้ — คลิกที่การ์ดรายวิชาเพื่อเลือกเรียน หรือคลิกซ้ำเพื่อยกเลิก</div>
+    </div>
+    <div class="ge-grid" id="ge-grid"></div>
+    <div class="confirm-area">
+      <button class="confirm-btn" id="confirm-btn" onclick="confirmSelection()" disabled>ยืนยันการเลือก</button>
+      <span class="hint" id="confirm-hint">เลือกวิชาก่อนกดยืนยัน</span>
+    </div>
+  </div>
+</div>
+
+<script>
+window.onload = function() {
+    setTimeout(() => {
+        document.getElementById('welcome-modal').classList.add('show');
+    }, 150); 
+};
+
+function closeWelcomeModal() {
+    document.getElementById('welcome-modal').classList.remove('show');
+}
+
+const DAYS = ['จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์'];
+const PERIODS = ['เช้า','บ่าย'];
+const HOMEROOM = new Set(['พุธ-บ่าย']);
+
+// 🔒 ล็อควิชาเอก (ช่องสีแดง)
+const MAJOR = {
+  'จันทร์-เช้า':  { subj: 'ภาษาไทยและอังกฤษเพื่อการสื่อสาร', time: '08:00–12:00' },
+  'อังคาร-บ่าย': { subj: 'ไวยากรณ์ภาษาอังกฤษสำหรับครู',      time: '13:00–17:00' },
+  'พุธ-เช้า':     { subj: 'สัทศาสตร์และสรวิทยา',               time: '08:00–12:00' },
+  'ศุกร์-เช้า':   { subj: 'จิตวิทยาเพื่อการพัฒนาผู้เรียน',     time: '08:00–12:00' },
+};
+
+// 📚 ข้อมูลวิชา GE ทั้งหมด
+const GE_LIST = [
+  // ================= GE บังคับ 1: ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่ =================
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG01', aj: 'ดร.วิไล ผิวมา', avail: 75, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG04', aj: 'อาจารย์ Rene Zumstein', avail: 75, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG07', aj: 'อาจารย์สมศักดิ์ จันทดี', avail: 75, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG02', aj: 'ดร.วิไล ผิวมา', avail: 75, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG05', aj: 'อาจารย์ณศิริ ศิริพริมา', avail: 75, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG08', aj: 'อาจารย์สมศักดิ์ จันทดี', avail: 75, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG03', aj: 'ดร.วิไล ผิวมา', avail: 75, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG06', aj: 'อาจารย์ณศิริ ศิริพริมา', avail: 75, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารยุคใหม่', code: '0011101-67', sec: 'LG09', aj: 'ดร.ปัทมา ปัญญาใส', avail: 75, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+
+  // ================= GE บังคับ 2: การคิดเชิงระบบและทักษะการรู้ดิจิทัล =================
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG01', aj: 'ว่าที่ ร.ต.ธเนศพลร์, อ.ธนานนท์', avail: 40, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG04', aj: 'ผศ.ดร.ศถิรวรรณ, อ.ตันติกร', avail: 40, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG07', aj: 'อ.สิทธิชัย, อ.ดุลชาติ', avail: 40, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG10', aj: 'ผศ.ดร.ศิวารักข์, ผศ.อิทธิชัย', avail: 40, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG11', aj: 'ดร.จุไรรัตน์, ดร.นรุวรรณ', avail: 90, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG02', aj: 'ว่าที่ ร.ต.ธเนศพลร์, ผศ.ดร.เกรียงศักดิ์', avail: 40, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG05', aj: 'ผศ.ดร.ศถิรวรรณ, อ.ตันติกร', avail: 40, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG08', aj: 'อ.สิทธิชัย, อ.ดุลชาติ', avail: 40, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG12', aj: 'ดร.จุไรรัตน์, ดร.นรุวรรณ', avail: 90, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG03', aj: 'ว่าที่ ร.ต.ธเนศพลร์, ผศ.ดร.เกรียงศักดิ์', avail: 40, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG06', aj: 'ผศ.ดร.ศถิรวรรณ, อ.ตันติกร', avail: 40, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG09', aj: 'อ.สิทธิชัย, อ.ดุลชาติ', avail: 40, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+  { name: 'การคิดเชิงระบบและทักษะการรู้ดิจิทัล', code: '0011102-67', sec: 'LG13', aj: 'ดร.จุไรรัตน์, ดร.นรุวรรณ', avail: 90, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '05/08/69 08:30-10:30', examF: '07/10/69 08:30-10:30' },
+
+  // ================= GE บังคับ 3: วิศวกรสังคม =================
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG01', aj: 'ดร.ภัทรานุช, ว่าที่ ร.อ.ชวิศ', avail: 75, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG04', aj: 'อ.มนตรี', avail: 75, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG07', aj: 'อ.วิษณุชัย', avail: 75, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG02', aj: 'ผศ.ณัชชา', avail: 75, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG05', aj: 'ว่าที่ ร.อ.ชวิศ', avail: 75, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG08', aj: 'ผศ.รวิภาส', avail: 75, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG03', aj: 'อ.ขนิษฐา', avail: 75, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG06', aj: 'ผศ.พรรณธวรรณ', avail: 75, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+  { name: 'วิศวกรสังคม', code: '0011103-67', sec: 'LG09', aj: 'ดร.กิติศักดิ์', avail: 75, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '06/08/69 08:30-10:30', examF: 'OUT-F-วิศวกร' },
+
+  // ================= GE บังคับ 4: ศาสตร์และศิลป์การดำเนินชีวิต =================
+  { name: 'ศาสตร์และศิลป์การดำเนินชีวิต', code: '0011104-67', sec: 'LG01', aj: 'รศ.ไทยโรจน์ พวงมณี และคณะ', avail: 95, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M-ศิลป์', examF: 'OUT-F-ศิลป์' },
+  { name: 'ศาสตร์และศิลป์การดำเนินชีวิต', code: '0011104-67', sec: 'LG04', aj: 'รศ.ไทยโรจน์ พวงมณี และคณะ', avail: 95, isRequired: true, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M-ศิลป์', examF: 'OUT-F-ศิลป์' },
+  { name: 'ศาสตร์และศิลป์การดำเนินชีวิต', code: '0011104-67', sec: 'LG02', aj: 'รศ.ไทยโรจน์ พวงมณี และคณะ', avail: 95, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M-ศิลป์', examF: 'OUT-F-ศิลป์' },
+  { name: 'ศาสตร์และศิลป์การดำเนินชีวิต', code: '0011104-67', sec: 'LG05', aj: 'รศ.ไทยโรจน์ พวงมณี และคณะ', avail: 95, isRequired: true, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M-ศิลป์', examF: 'OUT-F-ศิลป์' },
+  { name: 'ศาสตร์และศิลป์การดำเนินชีวิต', code: '0011104-67', sec: 'LG03', aj: 'รศ.ไทยโรจน์ พวงมณี และคณะ', avail: 95, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M-ศิลป์', examF: 'OUT-F-ศิลป์' },
+  { name: 'ศาสตร์และศิลป์การดำเนินชีวิต', code: '0011104-67', sec: 'LG06', aj: 'รศ.ไทยโรจน์ พวงมณี และคณะ', avail: 95, isRequired: true, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M-ศิลป์', examF: 'OUT-F-ศิลป์' },
+
+  // =========================================================================
+  // ================= GE เลือก 10 วิชา =================
+  // =========================================================================
+
+  // 1. ภาษาไทยยุคดิจิทัล
+  { name: 'ภาษาไทยยุคดิจิทัล', code: '0011201-67', sec: 'LG01', aj: 'ผศ.วิชชุพงศ์, อ.อรนิต', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาไทยยุคดิจิทัล', code: '0011201-67', sec: 'LG04', aj: 'ผศ.ดร.สุรธัชนุกูล นุ่นภูบาล', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาไทยยุคดิจิทัล', code: '0011201-67', sec: 'LG02', aj: 'ผศ.ดร.พชรมณ, อ.ปาริชาติ', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาไทยยุคดิจิทัล', code: '0011201-67', sec: 'LG05', aj: 'ผศ.ดร.สุรธัชนุกูล, ดร.กนกพร', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาไทยยุคดิจิทัล', code: '0011201-67', sec: 'LG03', aj: 'ผศ.วิชชุพงศ์, อ.ปาริชาติ', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาไทยยุคดิจิทัล', code: '0011201-67', sec: 'LG06', aj: 'ผศ.ดร.ศาริศา, อ.อรนิต', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+
+  // 2. ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน', code: '0011202-67', sec: 'LG01', aj: 'อ.เปรมสิริ ภู่โภไคย', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน', code: '0011202-67', sec: 'LG04', aj: 'อ.ฐรัณภรณ์ ธนานิธิกุลโรจน์', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน', code: '0011202-67', sec: 'LG02', aj: 'ดร.มัสยา ราชวงษ์', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน', code: '0011202-67', sec: 'LG05', aj: 'อ.ฐรัณภรณ์ ธนานิธิกุลโรจน์', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน', code: '0011202-67', sec: 'LG03', aj: 'ผศ.ชมพูนุท ธีราวิทย์', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ภาษาอังกฤษเพื่อการสื่อสารและการทำงาน', code: '0011202-67', sec: 'LG06', aj: 'อ.เปรมสิริ ภู่โภไคย', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+
+  // 3. ความเป็นพลเมืองกับการป้องกันการทุจริต
+  { name: 'ความเป็นพลเมืองกับการป้องกันการทุจริต', code: '0011203-67', sec: 'LG01', aj: 'ผศ.ดร.วิชญ์ มะลิต้น', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ความเป็นพลเมืองกับการป้องกันการทุจริต', code: '0011203-67', sec: 'LG04', aj: 'อ.กุลขณิษฐ์ อดิรุจโชติสิริ', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ความเป็นพลเมืองกับการป้องกันการทุจริต', code: '0011203-67', sec: 'LG02', aj: 'อ.อารีรัตน์ โฮมประเสริฐ', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ความเป็นพลเมืองกับการป้องกันการทุจริต', code: '0011203-67', sec: 'LG05', aj: 'อ.กุลขณิษฐ์ อดิรุจโชติสิริ', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ความเป็นพลเมืองกับการป้องกันการทุจริต', code: '0011203-67', sec: 'LG03', aj: 'อ.อารีรัตน์ โฮมประเสริฐ', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'ความเป็นพลเมืองกับการป้องกันการทุจริต', code: '0011203-67', sec: 'LG06', aj: 'ผศ.ดร.วิชญ์ มะลิต้น', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+
+  // 4. อัตลักษณ์ไทเลย
+  { name: 'อัตลักษณ์ไทเลย', code: '0011204-67', sec: 'LG01', aj: 'รศ.สังคม พรหมศิริ', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'อัตลักษณ์ไทเลย', code: '0011204-67', sec: 'LG04', aj: 'ผศ.ดร.พรกมล ระหาญนอก', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'อัตลักษณ์ไทเลย', code: '0011204-67', sec: 'LG02', aj: 'รศ.สังคม พรหมศิริ', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'อัตลักษณ์ไทเลย', code: '0011204-67', sec: 'LG05', aj: 'ดร.พรกมล ระหาญนอก', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'อัตลักษณ์ไทเลย', code: '0011204-67', sec: 'LG03', aj: 'รศ.สังคม พรหมศิริ', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'อัตลักษณ์ไทเลย', code: '0011204-67', sec: 'LG06', aj: 'ผศ.ดร.พรกมล ระหาญนอก', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+
+  // 5. ศาสตร์แห่งอาหาร สุขภาพและความงาม
+  { name: 'ศาสตร์แห่งอาหาร สุขภาพและความงาม', code: '0011205-67', sec: 'LG01', aj: 'ผศ.สุระเดช และคณะ', avail: 80, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ศาสตร์แห่งอาหาร สุขภาพและความงาม', code: '0011205-67', sec: 'LG02', aj: 'อ.นิตยา และคณะ', avail: 80, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ศาสตร์แห่งอาหาร สุขภาพและความงาม', code: '0011205-67', sec: 'LG03', aj: 'อ.นิตยา, ผศ.ดร.สุภาวดี และคณะ', avail: 80, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+
+  // 6. ชีวิตสีเขียวในโลกแห่งอนาคต
+  { name: 'ชีวิตสีเขียวในโลกแห่งอนาคต', code: '0011206-67', sec: 'LG01', aj: 'ผศ.วีรชน และคณะ', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ชีวิตสีเขียวในโลกแห่งอนาคต', code: '0011206-67', sec: 'LG04', aj: 'ผศ.ดร.นุวัติ, อ.พันธ์ทิวา, ดร.วิไลวรรณ', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ชีวิตสีเขียวในโลกแห่งอนาคต', code: '0011206-67', sec: 'LG02', aj: 'ผศ.วีรชน และคณะ', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ชีวิตสีเขียวในโลกแห่งอนาคต', code: '0011206-67', sec: 'LG05', aj: 'ผศ.มัลลิกา, ดร.ศิริรัตน์ และคณะ', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ชีวิตสีเขียวในโลกแห่งอนาคต', code: '0011206-67', sec: 'LG03', aj: 'ผศ.มัลลิกา, ผศ.ดร.อรทัย และคณะ', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+  { name: 'ชีวิตสีเขียวในโลกแห่งอนาคต', code: '0011206-67', sec: 'LG06', aj: 'อ.ธีรภัทร์, ดร.ศิริรัตน์ และคณะ', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '06/08/69 13:30-15:30', examF: '08/10/69 13:30-15:30' },
+
+  // 7. เครื่องใช้ใกล้ตัว
+  { name: 'เครื่องใช้ใกล้ตัว', code: '0011207-67', sec: 'LG01', aj: 'อ.โกเมนทร์ และคณะ', avail: 70, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: '08/10/69 13:30-15:30' },
+  { name: 'เครื่องใช้ใกล้ตัว', code: '0011207-67', sec: 'LG02', aj: 'อ.โกเมนทร์ และคณะ', avail: 70, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: '08/10/69 13:30-15:30' },
+  { name: 'เครื่องใช้ใกล้ตัว', code: '0011207-67', sec: 'LG03', aj: 'อ.โกเมนทร์, ผศ.ดร.เมืองมล, ผศ.ดร.คชสีห์', avail: 70, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: '08/10/69 13:30-15:30' },
+
+  // 8. การเป็นผู้ประกอบการสตาร์ทอัพ
+  { name: 'การเป็นผู้ประกอบการสตาร์ทอัพ', code: '0011208-67', sec: 'LG01', aj: 'อ.เกศนี จึงวัฒนตระกูล', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 13:30-15:30', examF: '07/10/69 13:30-15:30' },
+  { name: 'การเป็นผู้ประกอบการสตาร์ทอัพ', code: '0011208-67', sec: 'LG04', aj: 'ดร.ศศิธร กกฝ้าย', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: '05/08/69 13:30-15:30', examF: '07/10/69 13:30-15:30' },
+  { name: 'การเป็นผู้ประกอบการสตาร์ทอัพ', code: '0011208-67', sec: 'LG02', aj: 'ผศ.รวัฒน์ มันทรา', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: '05/08/69 13:30-15:30', examF: '07/10/69 13:30-15:30' },
+  { name: 'การเป็นผู้ประกอบการสตาร์ทอัพ', code: '0011208-67', sec: 'LG05', aj: 'อ.วีระยุทธ รัชตเวชกุล', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: '05/08/69 13:30-15:30', examF: '07/10/69 13:30-15:30' },
+  { name: 'การเป็นผู้ประกอบการสตาร์ทอัพ', code: '0011208-67', sec: 'LG03', aj: 'ผศ.เหมวดี กายใหญ่', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '05/08/69 13:30-15:30', examF: '07/10/69 13:30-15:30' },
+  { name: 'การเป็นผู้ประกอบการสตาร์ทอัพ', code: '0011208-67', sec: 'LG06', aj: 'อ.วีระยุทธ รัชตเวชกุล', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: '05/08/69 13:30-15:30', examF: '07/10/69 13:30-15:30' },
+
+  // 9. นวัตกรรมและทรัพย์สินทางปัญญา
+  { name: 'นวัตกรรมและทรัพย์สินทางปัญญา', code: '0011209-67', sec: 'LG01', aj: 'ผศ.พรรณธวรรณ บุตรดีสุวรรณ', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'นวัตกรรมและทรัพย์สินทางปัญญา', code: '0011209-67', sec: 'LG04', aj: 'ว่าที่ พ.ต.นรชัย สอนใส', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'นวัตกรรมและทรัพย์สินทางปัญญา', code: '0011209-67', sec: 'LG02', aj: 'ว่าที่ พ.ต.นรชัย สอนใส', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'นวัตกรรมและทรัพย์สินทางปัญญา', code: '0011209-67', sec: 'LG05', aj: 'ดร.ศศิธร กกฝ้าย', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'นวัตกรรมและทรัพย์สินทางปัญญา', code: '0011209-67', sec: 'LG03', aj: 'ว่าที่ พ.ต.นรชัย สอนใส', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'นวัตกรรมและทรัพย์สินทางปัญญา', code: '0011209-67', sec: 'LG06', aj: 'ดร.ศศิธร กกฝ้าย', avail: 45, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+
+  // 10. การวางแผนการเงินและการลงทุน
+  { name: 'การวางแผนการเงินและการลงทุน', code: '0011210-67', sec: 'LG01', aj: 'อ.วรรณวิศา ชัชวาลย์', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'การวางแผนการเงินและการลงทุน', code: '0011210-67', sec: 'LG04', aj: 'ผศ.นิกร น้อยพรม', avail: 45, isRequired: false, units: 3, day: 'จันทร์', period: 'บ่าย', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'การวางแผนการเงินและการลงทุน', code: '0011210-67', sec: 'LG02', aj: 'อ.วรรณวิศา ชัชวาลย์', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'การวางแผนการเงินและการลงทุน', code: '0011210-67', sec: 'LG05', aj: 'อ.อรจิต ชัชวาลย์', avail: 45, isRequired: false, units: 3, day: 'อังคาร', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' },
+  { name: 'การวางแผนการเงินและการลงทุน', code: '0011210-67', sec: 'LG03', aj: 'อ.วรรณวิศา ชัชวาลย์', avail: 70, isRequired: false, units: 3, day: 'พฤหัสบดี', period: 'เช้า', examM: 'OUT-M', examF: 'OUT-F' }
+];
+
+let selectedGE = [];
+let registeredGE = {}; 
+let currentDay = null, currentPeriod = null;
+let isFinalized = false; 
+
+function buildTable() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  
+  DAYS.forEach(day => {
+    const tr = document.createElement('tr');
+    let html = `<td class="day-col">${day}</td>`;
+    PERIODS.forEach(period => {
+      const key = day + '-' + period;
+      
+      if (MAJOR[key]) {
+        const m = MAJOR[key];
+        html += `<td><div class="cell-major"><div class="subj">${m.subj}</div><div class="info">${m.time}</div></div></td>`;
+      } else if (HOMEROOM.has(key)) {
+        html += `<td><div class="cell-homeroom"><i class="ti ti-home" aria-hidden="true" style="font-size:16px;color:#64748b"></i><div class="hr-label">โฮมรูม</div><div class="hr-sub">ไม่เปิดลงทะเบียน</div></div></td>`;
+      } else if (registeredGE[key]) {
+        const g = registeredGE[key];
+        const trashBtn = isFinalized ? '' : `<button class="remove-slot-btn" onclick="removeRegisteredGE('${key}')" title="ลบออกจากตาราง"><i class="ti ti-trash"></i></button>`;
+        html += `<td>
+          <div class="cell-registered">
+            <div class="subj">${g.name}</div>
+            <div class="info">${g.code} [กลุ่ม ${g.sec}]</div>
+            ${trashBtn}
+          </div>
+        </td>`;
+      } else {
+        if (isFinalized) {
+            html += `<td><div class="cell-blank"><span>- ว่าง -</span></div></td>`;
+        } else {
+            const timeLabel = period === 'เช้า' ? '08:00–12:00' : '13:00–17:00';
+            html += `<td><div class="cell-free" onclick="openSlot('${day}','${period}')"><div class="free-label">+ เลือก GE</div><div class="free-time">${timeLabel}</div></div></td>`;
+        }
+      }
+    });
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+  
+  updateActionButtons();
+}
+
+function updateActionButtons() {
+    const totalRegistered = Object.keys(registeredGE).length;
+    const finishAction = document.getElementById('finish-action-container');
+    const editAction = document.getElementById('edit-action-container');
+    const legendFree = document.getElementById('legend-free');
+    
+    if (isFinalized) {
+        finishAction.style.display = 'none';
+        editAction.style.display = 'block';
+        legendFree.style.display = 'none';
+        document.getElementById('main-subtitle').textContent = "ตารางเรียนของคุณเสร็จสมบูรณ์แล้ว ✨ แคปหน้าจอนี้ไว้ได้เลย!";
+    } else {
+        editAction.style.display = 'none';
+        legendFree.style.display = 'flex';
+        document.getElementById('main-subtitle').textContent = "วิชาเอกถูกล็อคไว้แล้ว • ช่องสีเขียว = ว่าง กดเพื่อดูวิชา GE ที่สามารถเลือกเรียนได้";
+        
+        if (totalRegistered >= 2) {
+            finishAction.style.display = 'block'; 
+        } else {
+            finishAction.style.display = 'none';
+        }
+    }
+}
+
+function finalizeSchedule() {
+    isFinalized = true;
+    closePanel();
+    buildTable();
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}
+
+function editSchedule() {
+    isFinalized = false;
+    buildTable();
+}
+
+function removeRegisteredGE(slotKey) {
+  if(registeredGE[slotKey]) {
+     delete registeredGE[slotKey];
+     closePanel();
+     buildTable();
+  }
+}
+
+function openSlot(day, period) {
+  const totalRegistered = Object.keys(registeredGE).length;
+  if (totalRegistered >= 2) {
+      alert(`🚨 ไม่สามารถเลือกวิชาเพิ่มได้แล้วครับ!\n\nตามเงื่อนไขน้องๆ สามารถเลือกลงวิชา GE ได้สูงสุดเพียง 2 วิชาเท่านั้นครับ ตอนนี้เลือกครบแล้วครับ\n\n💡 หากต้องการเปลี่ยนกลุ่มเรียน กรุณากดปุ่มถังขยะในช่องที่ต้องการเปลี่ยนเพื่อลบวิชาเดิมออกก่อนนะครับ`);
+      return;
+  }
+
+  currentDay = day; currentPeriod = period;
+  selectedGE = [];
+  const remaining = 1; 
+  
+  document.getElementById('panel-title').textContent = `วิชา GE ที่เปิดสอน — วัน${day} ช่วง${period}`;
+  document.getElementById('panel-sub').textContent = `คลิกเลือกกลุ่มเรียนที่น้องต้องการลงทะเบียนในช่องเวลานี้ (ปัจจุบันลงทะเบียนไว้แล้ว ${totalRegistered}/2 วิชา)`;
+  document.getElementById('cnt-num').textContent = 0;
+  document.getElementById('cnt-num').className = 'counter-num';
+  
+  renderGECards(remaining);
+  updateConfirm(remaining);
+  
+  const panel = document.getElementById('panel');
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderGECards(remaining) {
+  const grid = document.getElementById('ge-grid');
+  grid.innerHTML = '';
+  
+  const matched = GE_LIST.filter(g => g.day === currentDay && g.period === currentPeriod);
+  
+  if (matched.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><i class="ti ti-calendar-off" style="font-size:24px; display:block; margin-bottom:6px;"></i>ไม่มีวิชา GE เปิดสอนในวัน${currentDay} ช่วง${currentPeriod}</div>`;
+    return;
+  }
+
+  matched.forEach(ge => {
+    const realIdx = GE_LIST.indexOf(ge);
+    const alreadyDone = Object.values(registeredGE).some(r => r.code === ge.code);
+    const isPicked = selectedGE.includes(realIdx);
+    const isDisabled = !isPicked && (selectedGE.length >= remaining);
+    
+    const card = document.createElement('div');
+    let cls = 'ge-card';
+    if (alreadyDone) cls += ' done';
+    else if (isPicked) cls += ' picked';
+    else if (isDisabled) cls += ' disabled';
+    card.className = cls;
+    
+    card.innerHTML = `
+      <div class="ge-name">${ge.name}</div>
+      <div class="ge-code">${ge.code} • กลุ่ม ${ge.sec}</div>
+      <div class="ge-detail">
+        <span><i class="ti ti-user" aria-hidden="true" style="font-size:12px"></i> ${ge.aj}</span>
+        <span><i class="ti ti-armchair" aria-hidden="true" style="font-size:12px"></i> ว่าง ${ge.avail} ที่นั่ง</span>
+      </div>
+      <div class="badge-container">
+        ${ge.isRequired ? '<span class="badge-required">GE บังคับ</span>' : '<span class="badge-elective">GE เลือก</span>'}
+        <span class="badge">${ge.units} หน่วยกิต</span>
+      </div>`;
+      
+    if (!alreadyDone && !isDisabled) {
+        card.onclick = () => toggleGE(realIdx, remaining);
+    }
+    grid.appendChild(card);
+  });
+}
+
+function toggleGE(idx, remaining) {
+  const targetGE = GE_LIST[idx];
+  const pos = selectedGE.indexOf(idx);
+  
+  if (pos >= 0) {
+    selectedGE.splice(pos, 1);
+  } else {
+    let conflictMidterm = null;
+    let conflictFinal = null;
+
+    Object.values(registeredGE).forEach(registered => {
+        if (registered.examM === targetGE.examM && !targetGE.examM.includes('OUT')) conflictMidterm = registered;
+        if (registered.examF === targetGE.examF && !targetGE.examF.includes('OUT')) conflictFinal = registered;
+    });
+
+    if (conflictMidterm) {
+        alert(`🚨 วันสอบกลางภาคชนกัน!\n\nวิชา "${targetGE.name}" มีกำหนดสอบกลางภาคเวลาเดียวกับวิชา "${conflictMidterm.name}" ที่คุณลงทะเบียนไว้แล้วครับ!`);
+        return; 
+    }
+    if (conflictFinal) {
+        alert(`🚨 วันสอบปลายภาคชนกัน!\n\nวิชา "${targetGE.name}" มีกำหนดสอบปลายภาคเวลาเดียวกับวิชา "${conflictFinal.name}" ที่คุณลงทะเบียนไว้แล้วครับ!`);
+        return; 
+    }
+
+    selectedGE = [idx];
+  }
+
+  document.getElementById('cnt-num').textContent = selectedGE.length;
+  document.getElementById('cnt-num').className = 'counter-num' + (selectedGE.length >= remaining ? ' full' : '');
+  renderGECards(remaining);
+  updateConfirm(remaining);
+}
+
+function updateConfirm(remaining) {
+  const btn = document.getElementById('confirm-btn');
+  const hint = document.getElementById('confirm-hint');
+  if (selectedGE.length === 0) { 
+      btn.disabled = true; 
+      hint.textContent = 'เลือกวิชาก่อนกดยืนยัน'; 
+  } else { 
+      btn.disabled = false; 
+      hint.textContent = `กดยืนยันเพื่อบันทึกกลุ่มวิชาลงในตารางเรียน`; 
+  }
+}
+
+function confirmSelection() {
+  selectedGE.forEach(idx => {
+    const ge = GE_LIST[idx];
+    const key = ge.day + '-' + ge.period;
+    if (!MAJOR[key] && !HOMEROOM.has(key)) registeredGE[key] = ge;
+  });
+  selectedGE = [];
+  closePanel();
+  buildTable();
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('show');
+  selectedGE = [];
+  currentDay = null; currentPeriod = null;
+}
+
+buildTable();
+</script>
+
+</body>
+</html>
